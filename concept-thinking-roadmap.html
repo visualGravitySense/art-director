@@ -1,0 +1,3840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conceptual Thinking - Roadmap</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap');
+        
+        body {
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #ffb3bb41 0%, #ffdfba41 25%, #ffffba41 50%, #baffc954 75%, #bae1ff57 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #ffb3bb41 0%, #ffdfba41 25%, #ffffba41 50%, #baffc954 75%, #bae1ff57 100%);
+            opacity: 0.1;
+            z-index: 1;
+        }
+
+        .header h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(135deg, #fae8ff 0%, #e8efff 25%, #daeeff 50%, #c8f9f6 75%, #baf0fd 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 30px;
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 2;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Main Layout */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        /* Roadmap Content */
+        .roadmap {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(25px);
+            border-radius: 1px;
+            border: 3px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 22px 66px rgba(0, 0, 0, 0.1), 0 7px 25px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .roadmap::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #ffb3ba, #ffdfba, #ffffba, #baffc9, #bae1ff);
+            border-radius: 1px 1px 0 0;
+        }
+
+        .roadmap-section {
+            border-bottom: 1px solid #e2e8f0;
+            position: relative;
+        }
+
+        .roadmap-section:last-child {
+            border-bottom: none;
+        }
+
+        .section-header {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(15px);
+            padding: 24px 32px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+            transform: translateY(0);
+        }
+
+        .section-header:hover {
+            background: rgba(255, 255, 255, 0.8);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-header.active {
+            background: rgba(224, 231, 255, 0.8);
+            transform: translateY(-4px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.2);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #ff6b9d, #f8b500);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(255, 107, 157, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .section-icon:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(255, 107, 157, 0.4);
+        }
+
+        .section-description {
+            color: #64748b;
+            font-size: 1rem;
+        }
+
+        .section-content {
+            padding: 32px;
+            display: none;
+        }
+
+        .section-content.active {
+            display: block;
+        }
+
+        .progress-indicator {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: #e2e8f0;
+        }
+
+        .progress-indicator.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        /* Content Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .content-card {
+            background: rgba(255, 255, 255, 0.144);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            border-radius: 2px;
+            padding: 30px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #6b9aff, #5700f8, #4ecdc4);
+            border-radius: 2px 2px 0 0;
+        }
+
+        .content-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15), 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 12px;
+            font-family: 'Outfit', sans-serif;
+            letter-spacing: -0.005em;
+        }
+
+        .emoji {
+            font-size: 1.5rem;
+            margin-right: 10px;
+        }
+
+        .card-content {
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+
+        .card-content ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .card-content li {
+            padding: 4px 0;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .card-content li::before {
+            content: "•";
+            color: #667eea;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Steps */
+        .steps {
+            margin: 24px 0;
+        }
+
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 24px;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .step-number {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .step-content h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 8px;
+        }
+
+        .step-content ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .step-content li {
+            padding: 2px 0;
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+
+        /* Section Header with Buttons */
+        .section-header-with-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .section-header-with-buttons h3 {
+            margin: 0;
+            flex: 1;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        /* Tools Grid */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .tool-item {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .tool-item:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        .tool-item h5 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 4px;
+        }
+
+        .tool-item p {
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        /* Metrics */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 24px 0;
+        }
+
+        .metric-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 8px;
+        }
+
+        .metric-label {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+        }
+
+        .sidebar-card {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(25px);
+            border-radius: 1px;
+            border: 3px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 22px 66px rgba(0, 0, 0, 0.1), 0 7px 25px rgba(0, 0, 0, 0.05);
+            padding: 24px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .sidebar-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #ffb3ba, #ffdfba, #ffffba, #baffc9, #bae1ff);
+            border-radius: 1px 1px 0 0;
+        }
+
+        .sidebar-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.15), 0 12px 35px rgba(0, 0, 0, 0.08);
+        }
+
+        .sidebar-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 16px;
+        }
+
+        .nav-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .nav-item {
+            margin-bottom: 8px;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 8px 12px;
+            color: #64748b;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: #e0e7ff;
+            color: #667eea;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* Case Studies */
+        .case-study {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 16px 0;
+            border-left: 4px solid #10b981;
+        }
+
+        .case-study.negative {
+            border-left-color: #ef4444;
+        }
+
+        .case-study h5 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 8px;
+        }
+
+        .case-study p {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .sidebar {
+                position: static;
+                order: -1;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .mobile-menu-toggle {
+                display: none !important;
+            }
+            
+            .mobile-close {
+                display: none !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .header {
+                padding: 40px 0;
+                margin-bottom: 30px;
+            }
+
+            .header h1 {
+                font-size: 2.2rem;
+                margin-bottom: 12px;
+            }
+
+            .header p {
+                font-size: 1.1rem;
+                padding: 0 10px;
+            }
+
+            .main-content {
+                gap: 20px;
+                margin-bottom: 40px;
+            }
+
+            .roadmap {
+                border-radius: 8px;
+            }
+
+            .section-header {
+                padding: 20px 20px;
+            }
+
+            .section-title {
+                font-size: 1.3rem;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .section-icon {
+                width: 28px;
+                height: 28px;
+                font-size: 0.8rem;
+            }
+
+            .section-description {
+                font-size: 0.95rem;
+                margin-top: 8px;
+            }
+
+            .section-content {
+                padding: 20px;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+                margin-bottom: 24px;
+            }
+
+            .content-card {
+                padding: 20px;
+            }
+
+            .card-title {
+                font-size: 1rem;
+                margin-bottom: 10px;
+            }
+
+            .card-content {
+                font-size: 0.9rem;
+            }
+
+            .steps {
+                margin: 20px 0;
+            }
+
+            .step {
+                flex-direction: column;
+                gap: 12px;
+                padding: 16px;
+                margin-bottom: 16px;
+            }
+
+            .step-number {
+                width: 28px;
+                height: 28px;
+                font-size: 0.8rem;
+                align-self: flex-start;
+            }
+
+            .step-content h4 {
+                font-size: 1rem;
+                margin-bottom: 6px;
+            }
+
+            .step-content li {
+                font-size: 0.9rem;
+            }
+
+            .section-header-with-buttons {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .header-buttons {
+                align-self: flex-end;
+            }
+
+            .tools-grid {
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+                gap: 12px;
+                margin: 20px 0;
+            }
+
+            .tool-item {
+                padding: 12px;
+            }
+
+            .tool-item h5 {
+                font-size: 0.9rem;
+                margin-bottom: 4px;
+            }
+
+            .tool-item p {
+                font-size: 0.8rem;
+            }
+
+            .metrics-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 16px;
+                margin: 20px 0;
+            }
+
+            .metric-card {
+                padding: 16px;
+            }
+
+            .metric-value {
+                font-size: 1.6rem;
+                margin-bottom: 6px;
+            }
+
+            .metric-label {
+                font-size: 0.85rem;
+            }
+
+            .case-study {
+                padding: 16px;
+                margin: 12px 0;
+            }
+
+            .case-study h5 {
+                font-size: 0.95rem;
+                margin-bottom: 6px;
+            }
+
+            .case-study p {
+                font-size: 0.85rem;
+            }
+
+            .sidebar-card {
+                padding: 20px;
+                margin-bottom: 16px;
+            }
+
+            .sidebar-title {
+                font-size: 1.1rem;
+                margin-bottom: 12px;
+            }
+
+            .nav-link {
+                padding: 10px 12px;
+                font-size: 0.9rem;
+            }
+
+            .progress-bar {
+                height: 6px;
+                margin-bottom: 10px;
+            }
+
+            h3 {
+                font-size: 1.2rem;
+                margin: 20px 0 12px 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 10px;
+            }
+
+            .header {
+                padding: 30px 0;
+            }
+
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .header p {
+                font-size: 1rem;
+            }
+
+            .section-header {
+                padding: 16px;
+            }
+
+            .section-title {
+                font-size: 1.2rem;
+            }
+
+            .section-content {
+                padding: 16px;
+            }
+
+            .content-card {
+                padding: 16px;
+            }
+
+            .step {
+                padding: 12px;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .metric-value {
+                font-size: 1.4rem;
+            }
+
+            .sidebar-card {
+                padding: 16px;
+            }
+
+            .nav-link {
+                padding: 8px 10px;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            background: linear-gradient(135deg, #ff6b9d, #f8b500);
+            color: white;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 20px;
+            width: 100%;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+            box-shadow: 0 4px 15px rgba(255, 107, 157, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 157, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            .sidebar.mobile-open {
+                display: block;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 1000;
+                padding: 20px;
+                overflow-y: auto;
+            }
+
+            .sidebar.mobile-open .sidebar-card {
+                background: white;
+                border-radius: 12px;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+                margin-bottom: 20px;
+            }
+
+            .mobile-close {
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                background: #ef4444;
+                color: white;
+                border: none;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                font-size: 1.2rem;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                -webkit-tap-highlight-color: transparent;
+                touch-action: manipulation;
+            }
+        }
+
+        /* Improved touch targets */
+        @media (max-width: 768px) {
+            .section-header {
+                min-height: 60px;
+                display: flex;
+                align-items: center;
+            }
+
+            .tool-item {
+                min-height: 80px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            .metric-card {
+                min-height: 100px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-content.active {
+            animation: fadeIn 0.3s ease;
+        }
+
+        /* Floating Elements */
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 107, 157, 0.15);
+            animation: float 8s ease-in-out infinite;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .floating-circle:nth-child(1) {
+            width: 100px;
+            height: 100px;
+            top: 15%;
+            left: 8%;
+            animation-delay: 0s;
+            background: rgba(255, 107, 157, 0.2);
+        }
+
+        .floating-circle:nth-child(2) {
+            width: 140px;
+            height: 140px;
+            top: 55%;
+            right: 12%;
+            animation-delay: 2.5s;
+            background: rgba(248, 181, 0, 0.2);
+        }
+
+        .floating-circle:nth-child(3) {
+            width: 80px;
+            height: 80px;
+            bottom: 15%;
+            left: 15%;
+            animation-delay: 5s;
+            background: rgba(78, 205, 196, 0.2);
+        }
+
+        .floating-circle:nth-child(4) {
+            width: 60px;
+            height: 60px;
+            top: 40%;
+            right: 30%;
+            animation-delay: 1s;
+            background: rgba(69, 183, 209, 0.2);
+        }
+
+        @keyframes float {
+            0%, 100% { 
+                transform: translateY(0px) rotate(0deg) scale(1); 
+            }
+            25% { 
+                transform: translateY(-15px) rotate(90deg) scale(1.05); 
+            }
+            50% { 
+                transform: translateY(-25px) rotate(180deg) scale(1.1); 
+            }
+            75% { 
+                transform: translateY(-15px) rotate(270deg) scale(1.05); 
+            }
+        }
+
+        /* Enhanced Step Design */
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 24px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            border-left: 5px solid #ff6b9d;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .step:hover {
+            transform: translateX(5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .step-number {
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(135deg, #ff6b9d, #f8b500);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+            box-shadow: 0 4px 15px rgba(255, 107, 157, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .step-number:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(255, 107, 157, 0.4);
+        }
+
+        /* Info Button */
+        .info-button {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+
+        .info-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Task Button */
+        .task-button {
+            position: absolute;
+            top: 15px;
+            right: 55px;
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #ff6b9d, #f8b500);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 157, 0.3);
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+
+        .task-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(255, 107, 157, 0.4);
+        }
+
+        /* Solution Button */
+        .solution-button {
+            position: absolute;
+            top: 15px;
+            right: 95px;
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #4ecdc4, #44a08d);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .solution-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(78, 205, 196, 0.4);
+        }
+
+        /* Popup Modal */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .popup-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .popup-modal {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(25px);
+            border-radius: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.2), 0 10px 40px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.9) translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .popup-overlay.active .popup-modal {
+            transform: scale(1) translateY(0);
+        }
+
+        .popup-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 24px 30px;
+            border-radius: 17px 17px 0 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .popup-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #ffb3bb41 0%, #ffdfba41 25%, #ffffba41 50%, #baffc954 75%, #bae1ff57 100%);
+            opacity: 0.1;
+        }
+
+        .popup-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .popup-subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin: 8px 0 0 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 3;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+
+        .popup-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        .popup-content {
+            padding: 30px;
+        }
+
+        .popup-section {
+            margin-bottom: 24px;
+        }
+
+        .popup-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .popup-section h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .popup-section h4::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+
+        .popup-section p {
+            color: #64748b;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .popup-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .popup-section li {
+            padding: 6px 0;
+            color: #64748b;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .popup-section li::before {
+            content: "•";
+            color: #667eea;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .popup-highlight {
+            background: linear-gradient(135deg, #e0e7ff, #f0f4ff);
+            border-left: 4px solid #667eea;
+            padding: 16px 20px;
+            border-radius: 8px;
+            margin: 16px 0;
+        }
+
+        .popup-highlight p {
+            margin: 0;
+            color: #1e293b;
+            font-weight: 500;
+        }
+
+        /* Task Popup Styles */
+        .task-popup {
+            max-width: 700px;
+        }
+
+        .task-header {
+            background: linear-gradient(135deg, #ff6b9d 0%, #f8b500 100%);
+        }
+
+        .task-header::before {
+            background: linear-gradient(135deg, #ffb3bb41 0%, #ffdfba41 25%, #ffffba41 50%, #baffc954 75%, #bae1ff57 100%);
+        }
+
+        .task-section {
+            margin-bottom: 24px;
+            padding: 20px;
+            background: rgba(255, 107, 157, 0.05);
+            border-radius: 12px;
+            border-left: 4px solid #ff6b9d;
+        }
+
+        .task-section h4 {
+            color: #ff6b9d;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .task-section h4::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: linear-gradient(135deg, #ff6b9d, #f8b500);
+            border-radius: 2px;
+        }
+
+        .task-requirements {
+            background: rgba(248, 181, 0, 0.1);
+            border-left-color: #f8b500;
+        }
+
+        .task-requirements h4 {
+            color: #f8b500;
+        }
+
+        .task-requirements h4::before {
+            background: linear-gradient(135deg, #f8b500, #ff6b9d);
+        }
+
+        .task-criteria {
+            background: rgba(78, 205, 196, 0.1);
+            border-left-color: #4ecdc4;
+        }
+
+        .task-criteria h4 {
+            color: #4ecdc4;
+        }
+
+        .task-criteria h4::before {
+            background: linear-gradient(135deg, #4ecdc4, #45b7d1);
+        }
+
+        .task-time {
+            background: rgba(69, 183, 209, 0.1);
+            border-left-color: #45b7d1;
+        }
+
+        .task-time h4 {
+            color: #45b7d1;
+        }
+
+        .task-time h4::before {
+            background: linear-gradient(135deg, #45b7d1, #96ceb4);
+        }
+
+        .task-steps {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .task-steps li {
+            padding: 8px 0;
+            color: #64748b;
+            position: relative;
+            padding-left: 25px;
+            line-height: 1.5;
+        }
+
+        .task-steps li::before {
+            content: "▶";
+            color: #ff6b9d;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            top: 8px;
+        }
+
+        .task-highlight {
+            background: linear-gradient(135deg, #ffe0e6, #fff0e6);
+            border-left: 4px solid #ff6b9d;
+            padding: 16px 20px;
+            border-radius: 8px;
+            margin: 16px 0;
+        }
+
+        .task-highlight p {
+            margin: 0;
+            color: #1e293b;
+            font-weight: 500;
+        }
+
+        /* Mobile popup adjustments */
+        @media (max-width: 768px) {
+            .popup-modal {
+                margin: 10px;
+                max-height: 90vh;
+                border-radius: 15px;
+            }
+
+            .popup-header {
+                padding: 20px 25px;
+                border-radius: 12px 12px 0 0;
+            }
+
+            .popup-title {
+                font-size: 1.3rem;
+            }
+
+            .popup-subtitle {
+                font-size: 0.9rem;
+            }
+
+            .popup-close {
+                width: 35px;
+                height: 35px;
+                font-size: 1.3rem;
+                top: 15px;
+                right: 15px;
+            }
+
+            .popup-content {
+                padding: 20px;
+            }
+
+            .popup-section h4 {
+                font-size: 1.1rem;
+            }
+
+            .info-button {
+                width: 28px;
+                height: 28px;
+                font-size: 0.9rem;
+                top: 12px;
+                right: 12px;
+            }
+
+            .task-button {
+                width: 28px;
+                height: 28px;
+                font-size: 0.9rem;
+                top: 12px;
+                right: 48px;
+            }
+
+            .solution-button {
+                width: 28px;
+                height: 28px;
+                font-size: 0.9rem;
+                top: 12px;
+                right: 84px;
+            }
+
+            .task-section {
+                padding: 16px;
+                margin-bottom: 20px;
+            }
+
+            .task-section h4 {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-elements">
+        <div class="floating-circle"></div>
+        <div class="floating-circle"></div>
+        <div class="floating-circle"></div>
+        <div class="floating-circle"></div>
+    </div>
+
+    <div class="header">
+        <div class="container">
+            <h1>🎨 Conceptual Thinking</h1>
+            <p>Complete roadmap for creating holistic visual concepts for brands and products</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+            📱 Navigation Menu
+        </button>
+        
+        <div class="main-content">
+            <div class="roadmap">
+                <!-- Section 1: Introduction -->
+                <div class="roadmap-section" data-section="intro">
+                    <div class="progress-indicator"></div>
+                    <div class="section-header" onclick="toggleSection('intro')">
+                        <div class="section-title">
+                            <div class="section-icon">1</div>
+                            <span class="emoji">🎨</span>Introduction to Conceptual Thinking
+                        </div>
+                        <div class="section-description">
+                            Fundamentals of creating visual concepts and their role in branding
+                        </div>
+                    </div>
+                    <div class="section-content" id="intro">
+                        <div class="content-grid">
+                            <div class="content-card">
+                                <button class="task-button" onclick="openTaskPopup('task-visual-concept')">🎯</button>
+                                <button class="solution-button" onclick="openPopup('visual-concept-solution')">💡</button>
+                                <button class="info-button" onclick="openPopup('visual-concept')">i</button>
+                                <div class="card-title">What is a Visual Concept?</div>
+                                <div class="card-content">
+                                    <ul>
+                                        <li>Definition and differences from design</li>
+                                        <li>Concept components</li>
+                                        <li>Principles of integrity</li>
+                                        <li>Connection with brand strategy</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="content-card">
+                                <button class="info-button" onclick="openPopup('psychology')">i</button>
+                                <button class="task-button" onclick="openTaskPopup('task-psychology')">🎯</button>
+                                <button class="task-button" onclick="openTaskPopup('task-color-psychology-detailed')" style="background: linear-gradient(135deg, #E67E22, #F39C12);">🎨</button>
+                                <div class="card-title">Perception Psychology</div>
+                                <div class="card-content">
+                                    <ul>
+                                        <li>Color psychology</li>
+                                        <li>Typography psychology</li>
+                                        <li>Compositional principles</li>
+                                        <li>Cultural characteristics</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 2: Research & Analysis -->
+                <div class="roadmap-section" data-section="research">
+                    <div class="progress-indicator"></div>
+                    <div class="section-header" onclick="toggleSection('research')">
+                        <div class="section-title">
+                            <div class="section-icon">2</div>
+                            <span class="emoji">🔍</span>Research & Analysis
+                        </div>
+                        <div class="section-description">
+                            Deep analysis of brand, competitors and target audience
+                        </div>
+                    </div>
+                    <div class="section-content" id="research">
+                        <div class="steps">
+                            <div class="step">
+                                <div class="step-number">1</div>
+                                <div class="step-content">
+                                    <button class="info-button" onclick="openPopup('competitor-analysis')">i</button>
+                                    <button class="task-button" onclick="openTaskPopup('task-competitor-analysis')">🎯</button>
+                                    <button class="task-button" onclick="openTaskPopup('task-competitor-analysis-detailed')" style="background: linear-gradient(135deg, #3498DB, #2980B9);">📊</button>
+                                    <h4>Competitor Analysis</h4>
+                                    <ul>
+                                        <li>Visual market audit</li>
+                                        <li>Identifying trends and patterns</li>
+                                        <li>Finding white spaces</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">2</div>
+                                <div class="step-content">
+                                    <button class="info-button" onclick="openPopup('brand-analysis')">i</button>
+                                    <button class="task-button" onclick="openTaskPopup('task-brand-analysis')">🎯</button>
+                                    <h4>Brand Analysis</h4>
+                                    <ul>
+                                        <li>Positioning and values</li>
+                                        <li>Unique selling proposition</li>
+                                        <li>History and heritage</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">3</div>
+                                <div class="step-content">
+                                    <button class="info-button" onclick="openPopup('audience-analysis')">i</button>
+                                    <button class="task-button" onclick="openTaskPopup('task-audience-analysis')">🎯</button>
+                                    <h4>Audience Analysis</h4>
+                                    <ul>
+                                        <li>Demographics and psychographics</li>
+                                        <li>Behavioral patterns</li>
+                                        <li>Visual preferences</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 3: Conceptualization -->
+                <div class="roadmap-section" data-section="concept">
+                    <div class="progress-indicator"></div>
+                    <div class="section-header" onclick="toggleSection('concept')">
+                        <div class="section-title">
+                            <div class="section-icon">3</div>
+                            <span class="emoji">💡</span>Conceptualization
+                        </div>
+                        <div class="section-description">
+                            Creating mood boards and forming visual concepts
+                        </div>
+                    </div>
+                    <div class="section-content" id="concept">
+                        <div class="content-grid">
+                            <div class="content-card">
+                                <button class="info-button" onclick="openPopup('moodboarding')">i</button>
+                                <button class="task-button" onclick="openTaskPopup('task-moodboarding')">🎯</button>
+                                <div class="card-title">Moodboarding</div>
+                                <div class="card-content">
+                                    <ul>
+                                        <li>Collecting visual references</li>
+                                        <li>Systematizing images</li>
+                                        <li>Creating mood board</li>
+                                        <li>Emotional concept map</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="content-card">
+                                <button class="info-button" onclick="openPopup('key-elements')">i</button>
+                                <button class="task-button" onclick="openTaskPopup('task-key-elements')">🎯</button>
+                                <div class="card-title">Key Elements</div>
+                                <div class="card-content">
+                                    <ul>
+                                        <li>Defining visual elements</li>
+                                        <li>Formulating conceptual brief</li>
+                                        <li>Creating style directions</li>
+                                        <li>Concept validation</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 4: Visualization -->
+                <div class="roadmap-section" data-section="visual">
+                    <div class="progress-indicator"></div>
+                    <div class="section-header" onclick="toggleSection('visual')">
+                        <div class="section-title">
+                            <div class="section-icon">4</div>
+                            <span class="emoji">🎨</span>Visualization
+                        </div>
+                        <div class="section-description">
+                            Creating logo, color palette and typography
+                        </div>
+                    </div>
+                    <div class="section-content" id="visual">
+                        <div class="steps">
+                            <div class="step">
+                                <div class="step-number">1</div>
+                                <div class="step-content">
+                                    <button class="info-button" onclick="openPopup('logo-system')">i</button>
+                                    <button class="task-button" onclick="openTaskPopup('task-logo-system')">🎯</button>
+                                    <h4>Logo and Symbol System</h4>
+                                    <ul>
+                                        <li>Logo creation</li>
+                                        <li>Symbol system development</li>
+                                        <li>Variations and adaptations</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">2</div>
+                                <div class="step-content">
+                                    <button class="info-button" onclick="openPopup('color-palette')">i</button>
+                                    <button class="task-button" onclick="openTaskPopup('task-color-palette')">🎯</button>
+                                    <h4>Color Palette</h4>
+                                    <ul>
+                                        <li>Primary and secondary colors</li>
+                                        <li>Color psychology</li>
+                                        <li>Contrast and accessibility</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">3</div>
+                                <div class="step-content">
+                                    <button class="info-button" onclick="openPopup('typography')">i</button>
+                                    <button class="task-button" onclick="openTaskPopup('task-typography')">🎯</button>
+                                    <h4>Typography</h4>
+                                    <ul>
+                                        <li>Font family selection</li>
+                                        <li>Text hierarchy</li>
+                                        <li>Readability and functionality</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 5: Tools & Technology -->
+                <div class="roadmap-section" data-section="tools">
+                    <div class="progress-indicator"></div>
+                    <div class="section-header" onclick="toggleSection('tools')">
+                        <div class="section-title">
+                            <div class="section-icon">5</div>
+                            <span class="emoji">🛠</span>Tools & Technology
+                        </div>
+                        <div class="section-description">
+                            Modern tools for creating visual concepts
+                        </div>
+                    </div>
+                    <div class="section-content" id="tools">
+                        <div class="section-header-with-buttons">
+                            <h3>Design Tools</h3>
+                            <div class="header-buttons">
+                                <button class="info-button" onclick="openPopup('design-tools')">i</button>
+                                <button class="task-button" onclick="openTaskPopup('task-design-tools')">🎯</button>
+                            </div>
+                        </div>
+                        <div class="tools-grid">
+                            <div class="tool-item">
+                                <h5>Figma</h5>
+                                <p>Creating design systems and prototypes</p>
+                            </div>
+                            <div class="tool-item">
+                                <h5>Adobe Creative Suite</h5>
+                                <p>Photoshop, Illustrator, InDesign</p>
+                            </div>
+                            <div class="tool-item">
+                                <h5>Sketch</h5>
+                                <p>For Mac users</p>
+                            </div>
+                            <div class="tool-item">
+                                <h5>Principle/Framer</h5>
+                                <p>Animation and interactivity</p>
+                            </div>
+                        </div>
+
+                        <div class="section-header-with-buttons">
+                            <h3>Research Tools</h3>
+                            <div class="header-buttons">
+                                <button class="info-button" onclick="openPopup('research-tools')">i</button>
+                                <button class="task-button" onclick="openTaskPopup('task-research-tools')">🎯</button>
+                            </div>
+                        </div>
+                        <div class="tools-grid">
+                            <div class="tool-item">
+                                <h5>Miro/Mural</h5>
+                                <p>For moodboarding and brainstorming</p>
+                            </div>
+                            <div class="tool-item">
+                                <h5>Notion</h5>
+                                <p>Documentation and systematization</p>
+                            </div>
+                            <div class="tool-item">
+                                <h5>Google Analytics</h5>
+                                <p>User behavior analysis</p>
+                            </div>
+                            <div class="tool-item">
+                                <h5>Hotjar</h5>
+                                <p>Visual analytics</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 6: Case Studies -->
+                <div class="roadmap-section" data-section="cases">
+                    <div class="progress-indicator"></div>
+                    <div class="section-header" onclick="toggleSection('cases')">
+                        <div class="section-title">
+                            <div class="section-icon">6</div>
+                            <span class="emoji">📚</span>Case Studies & Examples
+                        </div>
+                        <div class="section-description">
+                            Analysis of successful and failed rebrandings
+                        </div>
+                    </div>
+                    <div class="section-content" id="cases">
+                        <h3>✅ Successful Rebrandings <button class="info-button" onclick="openPopup('successful-rebrands')" style="position: relative; top: -2px; margin-left: 10px;">i</button> <button class="task-button" onclick="openTaskPopup('task-successful-rebrands')" style="position: relative; top: -2px; margin-left: 5px;">🎯</button></h3>
+                        <div class="case-study">
+                            <h5>Airbnb (2014)</h5>
+                            <p>Creating the "Bélo" symbol - universal symbol of belonging</p>
+                        </div>
+                        <div class="case-study">
+                            <h5>Spotify (2015)</h5>
+                            <p>Simplification and unification of visual language</p>
+                        </div>
+                        <div class="case-study">
+                            <h5>Mastercard (2016)</h5>
+                            <p>Minimalist approach to logo</p>
+                        </div>
+
+                        <h3>❌ Failed Examples <button class="info-button" onclick="openPopup('failed-rebrands')" style="position: relative; top: -2px; margin-left: 10px;">i</button> <button class="task-button" onclick="openTaskPopup('task-failed-rebrands')" style="position: relative; top: -2px; margin-left: 5px;">🎯</button></h3>
+                        <div class="case-study negative">
+                            <h5>Gap (2010)</h5>
+                            <p>Quick rollback of changes due to negative reaction</p>
+                        </div>
+                        <div class="case-study negative">
+                            <h5>Tropicana (2009)</h5>
+                            <p>Loss of product recognition</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 7: Metrics & Success -->
+                <div class="roadmap-section" data-section="metrics">
+                    <div class="progress-indicator"></div>
+                    <div class="section-header" onclick="toggleSection('metrics')">
+                        <div class="section-title">
+                            <div class="section-icon">7</div>
+                            <span class="emoji">📊</span>Success Metrics
+                        </div>
+                        <div class="section-description">
+                            Measuring the effectiveness of visual solutions
+                        </div>
+                    </div>
+                    <div class="section-content" id="metrics">
+                        <h3>Quantitative Metrics <button class="info-button" onclick="openPopup('quantitative-metrics')" style="position: relative; top: -2px; margin-left: 10px;">i</button> <button class="task-button" onclick="openTaskPopup('task-quantitative-metrics')" style="position: relative; top: -2px; margin-left: 5px;">🎯</button></h3>
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">+25%</div>
+                                <div class="metric-label">Brand Recognition</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">+15%</div>
+                                <div class="metric-label">Conversion</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">-40%</div>
+                                <div class="metric-label">Time to Create Materials</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">95%</div>
+                                <div class="metric-label">Application Consistency</div>
+                            </div>
+                        </div>
+
+                        <h3>Qualitative Metrics <button class="info-button" onclick="openPopup('qualitative-metrics')" style="position: relative; top: -2px; margin-left: 10px;">i</button> <button class="task-button" onclick="openTaskPopup('task-qualitative-metrics')" style="position: relative; top: -2px; margin-left: 5px;">🎯</button></h3>
+                        <div class="content-grid">
+                            <div class="content-card">
+                                <div class="card-title">Brand Perception</div>
+                                <div class="card-content">
+                                    Changes in associations and emotional connection with audience
+                                </div>
+                            </div>
+                            <div class="content-card">
+                                <div class="card-title">Differentiation</div>
+                                <div class="card-content">
+                                    Uniqueness in the market and competitive advantages
+                                </div>
+                            </div>
+                            <div class="content-card">
+                                <div class="card-title">Scalability</div>
+                                <div class="card-content">
+                                    Applicability in different contexts and channels
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 8: Final Project -->
+                <div class="roadmap-section" data-section="project">
+                    <div class="progress-indicator"></div>
+                    <div class="section-header" onclick="toggleSection('project')">
+                        <div class="section-title">
+                            <div class="section-icon">8</div>
+                            <span class="emoji">🎯</span>Final Project
+                        </div>
+                        <div class="section-description">
+                            Creating a portfolio case with full development cycle
+                        </div>
+                    </div>
+                    <div class="section-content" id="project">
+                        <div class="content-card">
+                            <button class="info-button" onclick="openPopup('portfolio-case')">i</button>
+                            <button class="task-button" onclick="openTaskPopup('task-portfolio-case')">🎯</button>
+                            <div class="card-title">Creating Portfolio Case</div>
+                            <div class="card-content">
+                                <h4>Requirements:</h4>
+                                <ul>
+                                    <li>Full cycle of visual concept creation</li>
+                                    <li>Process documentation</li>
+                                    <li>Solution justification</li>
+                                    <li>Results measurement</li>
+                                    <li>Client presentation</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h3>Evaluation Criteria:</h3>
+                        <div class="content-grid">
+                            <div class="content-card">
+                                <div class="card-title">🎯 Strategic Approach</div>
+                                <div class="card-content">Connection with business goals and positioning</div>
+                            </div>
+                            <div class="content-card">
+                                <div class="card-title">🔗 Integrity</div>
+                                <div class="card-content">Unity of all concept elements</div>
+                            </div>
+                            <div class="content-card">
+                                <div class="card-title">💡 Innovation</div>
+                                <div class="card-content">Uniqueness and creativity of solution</div>
+                            </div>
+                            <div class="content-card">
+                                <div class="card-title">⚡ Practicality</div>
+                                <div class="card-content">Applicability in real conditions</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="sidebar" id="sidebar">
+                <button class="mobile-close" onclick="closeMobileMenu()">×</button>
+                <div class="sidebar-card">
+                    <div class="sidebar-title">Navigation</div>
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                            <a href="#intro" class="nav-link" onclick="scrollToSection('intro')">Introduction</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#research" class="nav-link" onclick="scrollToSection('research')">Research</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#concept" class="nav-link" onclick="scrollToSection('concept')">Conceptualization</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#visual" class="nav-link" onclick="scrollToSection('visual')">Visualization</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#tools" class="nav-link" onclick="scrollToSection('tools')">Tools</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#cases" class="nav-link" onclick="scrollToSection('cases')">Case Studies</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#metrics" class="nav-link" onclick="scrollToSection('metrics')">Metrics</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#project" class="nav-link" onclick="scrollToSection('project')">Project</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="sidebar-card">
+                    <div class="sidebar-title">Progress</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <p style="font-size: 0.9rem; color: #64748b; margin: 0;">
+                        <span id="progressText">0</span> of 8 sections completed
+                    </p>
+                </div>
+
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- Popup Modal -->
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup-modal">
+            <div class="popup-header">
+                <h2 class="popup-title" id="popupTitle">Title</h2>
+                <p class="popup-subtitle" id="popupSubtitle">Subtitle</p>
+                <button class="popup-close" onclick="closePopup()">×</button>
+            </div>
+            <div class="popup-content" id="popupContent">
+                <!-- Content will be dynamically inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Task Popup Modal -->
+    <div class="popup-overlay" id="taskPopupOverlay">
+        <div class="popup-modal task-popup">
+            <div class="popup-header task-header">
+                <h2 class="popup-title" id="taskPopupTitle">🎯 Practical Task</h2>
+                <p class="popup-subtitle" id="taskPopupSubtitle">Creating UI component in Figma</p>
+                <button class="popup-close" onclick="closeTaskPopup()">×</button>
+            </div>
+            <div class="popup-content" id="taskPopupContent">
+                <!-- Task content will be dynamically inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let completedSections = new Set();
+        const totalSections = 8;
+
+        // Task content data
+        const taskData = {
+            'task-visual-concept': {
+                title: '🎯 Conceptual Button',
+                subtitle: 'Creating UI component with conceptual approach',
+                content: `
+                    <div class="task-section">
+                        <h4>🎨 Task</h4>
+                        <p>Create a conceptual button in Figma that demonstrates the difference between simple design and conceptual approach.</p>
+                        <div class="task-highlight">
+                            <p>Goal: Understand how concept influences visual decisions and user experience.</p>
+                        </div>
+                    </div>
+                    <div class="task-section task-requirements">
+                        <h4>📋 Technical Requirements</h4>
+                        <ul class="task-steps">
+                            <li>Create artboard 1200x800px</li>
+                            <li>Develop button with 3 states (default, hover, active)</li>
+                            <li>Create component with variants</li>
+                            <li>Add Auto Layout for responsiveness</li>
+                            <li>Create annotations with solution justification</li>
+                        </ul>
+                    </div>
+                    <div class="task-section task-criteria">
+                        <h4>✅ Evaluation Criteria</h4>
+                        <ul class="task-steps">
+                            <li>Clear distinction between design and concept</li>
+                            <li>Visual solution justification</li>
+                            <li>Quality annotations</li>
+                            <li>Proper use of Figma components</li>
+                        </ul>
+                    </div>
+                    <div class="task-section task-time">
+                        <h4>⏱️ Completion Time</h4>
+                        <p><strong>2-3 hours</strong> - including theory study and component creation</p>
+                    </div>
+                `
+            },
+            'task-psychology': {
+                title: '🎯 Color Psychology in UI',
+                subtitle: 'Creating emotionally charged interface elements',
+                content: `
+                    <div class="task-section">
+                        <h4>🎨 Task</h4>
+                        <p>Create three versions of an interface element (product card) using different color palettes to convey various emotions.</p>
+                        <div class="task-highlight">
+                            <p>Goal: Study the influence of color on perception and emotional impact in UI.</p>
+                        </div>
+                    </div>
+                    <div class="task-section task-requirements">
+                        <h4>📋 Technical Requirements</h4>
+                        <ul class="task-steps">
+                            <li>Create 3 artboards 400x600px</li>
+                            <li>Develop product card for each mood</li>
+                            <li>Use warm, cool and neutral colors</li>
+                            <li>Create color styles in Figma</li>
+                            <li>Add typography matching the mood</li>
+                        </ul>
+                    </div>
+                    <div class="task-section task-criteria">
+                        <h4>✅ Evaluation Criteria</h4>
+                        <ul class="task-steps">
+                            <li>Emotional impact matches concept</li>
+                            <li>Proper use of color psychology</li>
+                            <li>Quality typography</li>
+                            <li>Visual appeal</li>
+                        </ul>
+                    </div>
+                    <div class="task-section task-time">
+                        <h4>⏱️ Completion Time</h4>
+                        <p><strong>3-4 hours</strong> - including color psychology research</p>
+                    </div>
+                `
+            },
+            'task-color-psychology-detailed': {
+                title: '🎨 Detailed Color Psychology Task',
+                subtitle: 'Comprehensive guide to creating emotionally charged interfaces',
+                content: `
+                    <div class="task-section">
+                        <h4>🎯 Task Overview</h4>
+                        <p>Create three versions of a SmartOrderAssistant product card using different color palettes to demonstrate how color psychology affects user emotions and behavior.</p>
+                        <div class="task-highlight">
+                            <p><strong>Base Color:</strong> #2b8659 (current green) - Study how different palettes change perception of the same interface.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="task-section task-requirements">
+                        <h4>📋 Step-by-Step Instructions</h4>
+                        
+                        <div class="task-subsection">
+                            <h5>🔧 Phase 1: Setup (30-40 min)</h5>
+                            <ul class="task-steps">
+                                <li>Create new Figma file with 3 artboards (400x600px each)</li>
+                                <li>Name artboards: "Теплая палитра", "Холодная палитра", "Нейтральная палитра"</li>
+                                <li>Recreate the product card from "Favorites" section as base</li>
+                            </ul>
+                        </div>
+
+                        <div class="task-subsection">
+                            <h5>🎨 Phase 2: Color Palettes (20-30 min)</h5>
+                            
+                            <div class="color-palette">
+                                <h6>🔥 Warm Palette (Energy & Appetite)</h6>
+                                <ul class="task-steps">
+                                    <li><strong>Primary:</strong> #E67E22 (orange)</li>
+                                    <li><strong>Accent:</strong> #F39C12 (yellow-orange)</li>
+                                    <li><strong>Support:</strong> #D35400 (red-orange)</li>
+                                    <li><strong>Background:</strong> #FDF2E9 (warm cream)</li>
+                                    <li><strong>Text:</strong> #A0522D (brown)</li>
+                                </ul>
+                            </div>
+
+                            <div class="color-palette">
+                                <h6>❄️ Cold Palette (Trust & Freshness)</h6>
+                                <ul class="task-steps">
+                                    <li><strong>Primary:</strong> #3498DB (blue)</li>
+                                    <li><strong>Accent:</strong> #2980B9 (dark blue)</li>
+                                    <li><strong>Support:</strong> #1ABC9C (turquoise)</li>
+                                    <li><strong>Background:</strong> #EBF5FF (light blue)</li>
+                                    <li><strong>Text:</strong> #2C3E50 (dark blue-gray)</li>
+                                </ul>
+                            </div>
+
+                            <div class="color-palette">
+                                <h6>⚪ Neutral Palette (Premium & Elegance)</h6>
+                                <ul class="task-steps">
+                                    <li><strong>Primary:</strong> #34495E (dark gray)</li>
+                                    <li><strong>Accent:</strong> #95A5A6 (gray)</li>
+                                    <li><strong>Support:</strong> #BDC3C7 (light gray)</li>
+                                    <li><strong>Background:</strong> #F8F9FA (off-white)</li>
+                                    <li><strong>Text:</strong> #2C3E50 (dark blue-gray)</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="task-subsection">
+                            <h5>🎨 Phase 3: Design Implementation (120-150 min)</h5>
+                            
+                            <div class="design-variant">
+                                <h6>🔥 Warm Card Design</h6>
+                                <ul class="task-steps">
+                                    <li><strong>Concept:</strong> Stimulate appetite, create homey feeling</li>
+                                    <li><strong>Typography:</strong> Poppins Bold for titles, Inter Regular for text</li>
+                                    <li><strong>Effects:</strong> Rounded corners (16px), warm orange shadows</li>
+                                    <li><strong>Button:</strong> Gradient from #E67E22 to #F39C12</li>
+                                </ul>
+                            </div>
+
+                            <div class="design-variant">
+                                <h6>❄️ Cold Card Design</h6>
+                                <ul class="task-steps">
+                                    <li><strong>Concept:</strong> Emphasize quality and freshness</li>
+                                    <li><strong>Typography:</strong> Inter Bold for titles, clean geometric shapes</li>
+                                    <li><strong>Effects:</strong> Sharp edges, cool blue shadows</li>
+                                    <li><strong>Button:</strong> Solid #3498DB with #2980B9 hover</li>
+                                </ul>
+                            </div>
+
+                            <div class="design-variant">
+                                <h6>⚪ Neutral Card Design</h6>
+                                <ul class="task-steps">
+                                    <li><strong>Concept:</strong> Create premium, sophisticated feeling</li>
+                                    <li><strong>Typography:</strong> Playfair Display for titles, Inter Light for text</li>
+                                    <li><strong>Effects:</strong> Minimal shadows, lots of white space</li>
+                                    <li><strong>Button:</strong> #34495E with subtle border</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="task-subsection">
+                            <h5>📝 Phase 4: Documentation (30-40 min)</h5>
+                            <ul class="task-steps">
+                                <li>Add annotations to each artboard explaining the psychology</li>
+                                <li>Document emotional impact and target use cases</li>
+                                <li>Create Color Styles in Figma for each palette</li>
+                                <li>Export final designs for presentation</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="task-section task-criteria">
+                        <h4>✅ Evaluation Criteria</h4>
+                        <ul class="task-steps">
+                            <li><strong>Emotional Impact:</strong> Each palette evokes intended emotions</li>
+                            <li><strong>Psychology Application:</strong> Correct use of color associations</li>
+                            <li><strong>Technical Quality:</strong> Readable text, proper contrast</li>
+                            <li><strong>Consistency:</strong> Cohesive palette application</li>
+                            <li><strong>Documentation:</strong> Clear explanations of choices</li>
+                        </ul>
+                    </div>
+
+                    <div class="task-section task-time">
+                        <h4>⏱️ Time Distribution</h4>
+                        <ul class="task-steps">
+                            <li><strong>Setup:</strong> 40 min</li>
+                            <li><strong>Color Research:</strong> 30 min</li>
+                            <li><strong>Color Styles:</strong> 40 min</li>
+                            <li><strong>Card Design:</strong> 150 min</li>
+                            <li><strong>Adaptation:</strong> 50 min</li>
+                            <li><strong>Documentation:</strong> 40 min</li>
+                            <li><strong>Total:</strong> ~6 hours</li>
+                        </ul>
+                    </div>
+
+                    <div class="task-section">
+                        <h4>💡 Key Learning Points</h4>
+                        <div class="task-highlight">
+                            <p>This task demonstrates how the same interface can evoke completely different emotions and behaviors through strategic color choices. Perfect for understanding the power of color psychology in UI design!</p>
+                        </div>
+                    </div>
+                `
+            },
+            'task-competitor-analysis': {
+                title: '🎯 Visual Audit in Figma',
+                subtitle: 'Creating competitor comparison table',
+                content: `
+                    <div class="task-section">
+                        <h4>🎨 Task</h4>
+                        <p>Conduct a visual audit of 5 competitors and create an interactive comparison table in Figma.</p>
+                        <div class="task-highlight">
+                            <p>Goal: Learn to systematically analyze competitors' visual strategies.</p>
+                        </div>
+                    </div>
+                    <div class="task-section task-requirements">
+                        <h4>📋 Technical Requirements</h4>
+                        <ul class="task-steps">
+                            <li>Create artboard 1600x1200px</li>
+                            <li>Collect logos, color palettes, typography</li>
+                            <li>Create comparison table with analysis</li>
+                            <li>Highlight trends and white spaces</li>
+                            <li>Add interactive elements</li>
+                        </ul>
+                    </div>
+                    <div class="task-section task-criteria">
+                        <h4>✅ Evaluation Criteria</h4>
+                        <ul class="task-steps">
+                            <li>Completeness of analysis</li>
+                            <li>Trend identification</li>
+                            <li>Finding white spaces</li>
+                            <li>Quality data visualization</li>
+                        </ul>
+                    </div>
+                    <div class="task-section task-time">
+                        <h4>⏱️ Completion Time</h4>
+                        <p><strong>4-5 hours</strong> - including research and analysis</p>
+                    </div>
+                `
+            },
+            'task-competitor-analysis-detailed': {
+                title: '📊 Detailed Competitor Analysis Guide',
+                subtitle: 'Comprehensive visual audit for Bolt Food delivery service',
+                content: `
+                    <div class="task-section">
+                        <h4>🎯 Task Overview</h4>
+                        <p>Conduct a comprehensive visual audit of food delivery competitors to identify trends, patterns, and opportunities for Bolt Food's visual identity.</p>
+                        <div class="task-highlight">
+                            <p><strong>Focus:</strong> Analyze 5 major competitors (Uber Eats, DoorDash, Just Eat, Delivery Hero, Grubhub) to understand market visual strategies and find differentiation opportunities.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="task-section task-requirements">
+                        <h4>📋 Step-by-Step Implementation</h4>
+                        
+                        <div class="task-subsection">
+                            <h5>🔍 Phase 1: Data Collection (60-90 min)</h5>
+                            <ul class="task-steps">
+                                <li><strong>Create Figma file:</strong> Artboard 1600x1200px titled "Bolt Food - Competitor Analysis"</li>
+                                <li><strong>Collect materials for each competitor:</strong>
+                                    <ul style="margin-left: 20px; margin-top: 8px;">
+                                        <li>Logos (main and simplified versions)</li>
+                                        <li>App screenshots (home, catalog, restaurant card, cart)</li>
+                                        <li>Brand colors and typography samples</li>
+                                        <li>UI patterns and interactions</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Sources:</strong> Official websites, App Store/Google Play, Behance/Dribbble, brand guidelines</li>
+                            </ul>
+                        </div>
+
+                        <div class="task-subsection">
+                            <h5>📊 Phase 2: Analysis Structure (30-40 min)</h5>
+                            <ul class="task-steps">
+                                <li><strong>Create comparison table:</strong> Component | Bolt | Uber Eats | DoorDash | Just Eat | Grubhub</li>
+                                <li><strong>Analysis categories:</strong> Logo, Colors, Typography, Main Screen, Catalog, Restaurant Card, Cart</li>
+                                <li><strong>Documentation format:</strong> Visual samples + written analysis for each element</li>
+                            </ul>
+                        </div>
+
+                        <div class="task-subsection">
+                            <h5>🎨 Phase 3: Visual Analysis (180 min)</h5>
+                            
+                            <div class="analysis-category">
+                                <h6>🔤 Logo Analysis (20-30 min)</h6>
+                                <ul class="task-steps">
+                                    <li><strong>Document for each:</strong> Type (text/symbol/combined), Style, Colors, Mood</li>
+                                    <li><strong>Example:</strong> Uber Eats - Combined, Geometric/Modern, Black+Green, Tech/Reliable</li>
+                                </ul>
+                            </div>
+
+                            <div class="analysis-category">
+                                <h6>🌈 Color Palette Analysis (40-50 min)</h6>
+                                <ul class="task-steps">
+                                    <li><strong>Extract main colors</strong> and create Figma color palettes</li>
+                                    <li><strong>Identify trends:</strong> Green (4/5), Red (3/5), Orange (2/5)</li>
+                                    <li><strong>Find white spaces:</strong> Turquoise/mint combinations, unique gradients</li>
+                                </ul>
+                            </div>
+
+                            <div class="analysis-category">
+                                <h6>📝 Typography Analysis (30-40 min)</h6>
+                                <ul class="task-steps">
+                                    <li><strong>Categories:</strong> Headlines, Body text, Buttons, Prices</li>
+                                    <li><strong>Trends:</strong> Sans-serif dominates (5/5), rounded forms, mobile readability</li>
+                                    <li><strong>Opportunity:</strong> Serif for premium restaurant categories</li>
+                                </ul>
+                            </div>
+
+                            <div class="analysis-category">
+                                <h6>📱 UX/UI Pattern Analysis (60-80 min)</h6>
+                                <ul class="task-steps">
+                                    <li><strong>Main Screen:</strong> Search structure, categories, promos, recommendations</li>
+                                    <li><strong>Restaurant Catalog:</strong> Card design, filters, sorting, navigation</li>
+                                    <li><strong>Restaurant Page:</strong> Hero image, menu structure, delivery info, reviews</li>
+                                    <li><strong>Create wireframes</strong> of common patterns</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="task-subsection">
+                            <h5>📈 Phase 4: Trend Identification (30-40 min)</h5>
+                            <ul class="task-steps">
+                                <li><strong>Visual Trends 2024:</strong>
+                                    <ul style="margin-left: 20px; margin-top: 8px;">
+                                        <li>Green as primary trend (ecology, health)</li>
+                                        <li>Gradient accents and dark theme options</li>
+                                        <li>Custom sans-serif fonts, large headlines (36-48px)</li>
+                                        <li>Card design, vertical lists, sticky navigation</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="task-subsection">
+                            <h5>💡 Phase 5: White Space Discovery (40-50 min)</h5>
+                            <ul class="task-steps">
+                                <li><strong>Color Opportunities:</strong> Turquoise + coral, green gradients, monochrome with bright accents</li>
+                                <li><strong>Style Opportunities:</strong> Playful illustrations, retro style, Apple-like minimalism</li>
+                                <li><strong>UX Innovations:</strong> AR food preview, personalized themes, gamification</li>
+                                <li><strong>Emotional Positioning:</strong> More humanity, local adaptation, seasonal themes</li>
+                            </ul>
+                        </div>
+
+                        <div class="task-subsection">
+                            <h5>🎯 Phase 6: Strategic Recommendations (30-40 min)</h5>
+                            <ul class="task-steps">
+                                <li><strong>Follow Trends:</strong> Green primary color, card design, quality food photos</li>
+                                <li><strong>Differentiate:</strong> Unique green shade, orange accents, lightning-themed illustrations</li>
+                                <li><strong>Innovate:</strong> Faster checkout, predictive search, Bolt transport integration</li>
+                                <li><strong>Position:</strong> More energy/dynamics, speed focus, friendly tone</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="task-section task-requirements">
+                        <h4>🛠 Technical Implementation</h4>
+                        <ul class="task-steps">
+                            <li><strong>Figma Structure:</strong> Overview table, Color Palettes, Typography Analysis, UI Patterns, Trends & Insights, White Spaces</li>
+                            <li><strong>Components to Create:</strong> Competitor Card, Color Palette, Typography Sample, UI Pattern</li>
+                            <li><strong>Auto Layout:</strong> Table (Space between, 24px gap), Cards (Hug contents, 16px padding)</li>
+                            <li><strong>Interactive Elements:</strong> Hover effects, toggle buttons, tooltips, clickable color palettes</li>
+                        </ul>
+                    </div>
+
+                    <div class="task-section task-criteria">
+                        <h4>✅ Evaluation Criteria</h4>
+                        <ul class="task-steps">
+                            <li><strong>Analysis Completeness (30%):</strong> All 5 competitors, all aspects covered, quality references</li>
+                            <li><strong>Trend Identification (25%):</strong> Clear trends, quantitative analysis, understanding of causes</li>
+                            <li><strong>White Space Discovery (25%):</strong> Realistic opportunities, Bolt positioning alignment, innovative ideas</li>
+                            <li><strong>Visualization Quality (20%):</strong> Readable structure, attractive design, working interactivity</li>
+                        </ul>
+                    </div>
+
+                    <div class="task-section task-time">
+                        <h4>⏱️ Time Distribution</h4>
+                        <ul class="task-steps">
+                            <li><strong>Data Collection:</strong> 90 min</li>
+                            <li><strong>Structure Creation:</strong> 40 min</li>
+                            <li><strong>Component Analysis:</strong> 180 min</li>
+                            <li><strong>Trends & White Spaces:</strong> 120 min</li>
+                            <li><strong>Interactivity:</strong> 30 min</li>
+                            <li><strong>Conclusions & Design:</strong> 40 min</li>
+                            <li><strong>Total:</strong> 6-8 hours</li>
+                        </ul>
+                    </div>
+
+                    <div class="task-section">
+                        <h4>💡 Key Learning Outcomes</h4>
+                        <div class="task-highlight">
+                            <p>This comprehensive analysis will teach you to systematically evaluate competitors, identify market trends, and discover unique opportunities for visual differentiation. Perfect for strategic design decision-making!</p>
+                        </div>
+                    </div>
+                `
+            },
+            'task-brand-analysis': {
+                title: '🎯 Audience Persona',
+                subtitle: 'Creating visual portrait of target audience',
+                content: `
+                    <div class="task-section">
+                        <h4>🎨 Task</h4>
+                        <p>Create a detailed visual portrait of a persona with design preferences for a selected brand.</p>
+                        <div class="task-highlight">
+                            <p>Goal: Understand how audience visual preferences influence design decisions.</p>
+                        </div>
+                    </div>
+                    <div class="task-section task-requirements">
+                        <h4>📋 Technical Requirements</h4>
+                        <ul class="task-steps">
+                            <li>Create artboard 1200x800px</li>
+                            <li>Create persona avatar</li>
+                            <li>Add demographic data</li>
+                            <li>Visualize design preferences</li>
+                            <li>Create mood board for persona</li>
+                        </ul>
+                    </div>
+                    <div class="task-section task-criteria">
+                        <h4>✅ Evaluation Criteria</h4>
+                        <ul class="task-steps">
+                            <li>Persona detail</li>
+                            <li>Visual appeal</li>
+                            <li>Practical applicability</li>
+                            <li>Data visualization quality</li>
+                        </ul>
+                    </div>
+                    <div class="task-section task-time">
+                        <h4>⏱️ Completion Time</h4>
+                        <p><strong>3-4 hours</strong> - including audience research</p>
+                    </div>
+                `
+            },
+            'task-audience-analysis': {
+                title: '🎯 Visual Preferences Analysis',
+                subtitle: 'Creating audience preferences map',
+                content: `
+                    <div class="task-section">
+                        <h4>🎨 Task</h4>
+                        <p>Create an interactive map of target audience visual preferences with design examples.</p>
+                        <div class="task-highlight">
+                            <p>Goal: Systematize understanding of what the audience likes in design.</p>
+                        </div>
+                    </div>
+                    <div class="task-section task-requirements">
+                        <h4>📋 Technical Requirements</h4>
+                        <ul class="task-steps">
+                            <li>Create artboard 1400x1000px</li>
+                            <li>Create preference categories</li>
+                            <li>Add design examples for each category</li>
+                            <li>Create interactive elements</li>
+                            <li>Add annotations with explanations</li>
+                        </ul>
+                    </div>
+                    <div class="task-section task-criteria">
+                        <h4>✅ Evaluation Criteria</h4>
+                        <ul class="task-steps">
+                            <li>Analysis systematicity</li>
+                            <li>Example quality</li>
+                            <li>Interactivity</li>
+                            <li>Practical value</li>
+                        </ul>
+                    </div>
+                    <div class="task-section task-time">
+                        <h4>⏱️ Completion Time</h4>
+                        <p><strong>4-5 hours</strong> - including research and example collection</p>
+                    </div>
+                `
+            },
+            'task-moodboarding': {
+                title: '🎯 Moodboard in Figma',
+                subtitle: 'Creating emotional concept map',
+                content: `
+                    <div class="task-section">
+                        <h4>🎨 Task</h4>
+                        <p>Create a comprehensive moodboard for a new brand using only Figma tools.</p>
+                        <div class="task-highlight">
+                            <p>Goal: Learn to create emotional maps of visual concepts.</p>
+                        </div>
+                    </div>
+                    <div class="task-section task-requirements">
+                        <h4>📋 Technical Requirements</h4>
+                        <ul class="task-steps">
+                            <li>Create artboard 1600x1200px</li>
+                            <li>Collect 20-30 visual elements</li>
+                            <li>Create color palette</li>
+                            <li>Add typography examples</li>
+                            <li>Organize elements by categories</li>
+                        </ul>
+                    </div>
+                    <div class="task-section task-criteria">
+                        <h4>✅ Evaluation Criteria</h4>
+                        <ul class="task-steps">
+                            <li>Emotional integrity</li>
+                            <li>Element diversity</li>
+                            <li>Good organization</li>
+                            <li>Visual appeal</li>
+                        </ul>
+                    </div>
+                    <div class="task-section task-time">
+                        <h4>⏱️ Completion Time</h4>
+                        <p><strong>4-6 hours</strong> - including material search and systematization</p>
+                    </div>
+                `
+            },
+            'task-key-elements': {
+                title: '🎯 Conceptual Brief',
+                subtitle: 'Visualizing key concept elements',
+                content: `
+                    <div class="task-section">
+                        <h4>🎨 Task</h4>
+                        <p>Create a visual conceptual brief describing key elements and application principles.</p>
+                        <div class="task-highlight">
+                            <p>Goal: Learn to formulate and visualize concepts for the team.</p>
+                        </div>
+                    </div>
+                    <div class="task-section task-requirements">
+                        <h4>📋 Technical Requirements</h4>
+                        <ul class="task-steps">
+                            <li>Create artboard 1200x1600px</li>
+                            <li>Create structured document</li>
+                            <li>Add visual examples</li>
+                            <li>Use typographic hierarchy</li>
+                            <li>Create reusable components</li>
+                        </ul>
+                    </div>
+                    <div class="task-section task-criteria">
+                        <h4>✅ Evaluation Criteria</h4>
+                        <ul class="task-steps">
+                            <li>Clarity of formulations</li>
+                            <li>Visual appeal</li>
+                            <li>Practical applicability</li>
+                            <li>Professional presentation</li>
+                        </ul>
+                    </div>
+                    <div class="task-section task-time">
+                        <h4>⏱️ Completion Time</h4>
+                        <p><strong>3-4 hours</strong> - including concept formulation</p>
+                    </div>
+                `
+            },
+            'task-logo-system': {
+                title: '🎯 Logo and Symbol System',
+                subtitle: 'Creating central element of visual identity',
+                content: `
+                    <div class="task-section">
+                        <h4>🎨 Task</h4>
+                        <p>Develop a logo and symbol system for a selected brand with a complete set of variants.</p>
+                        <div class="task-highlight">
+                            <p>Goal: Create a scalable and flexible visual identity system.</p>
+                        </div>
+                    </div>
+                    <div class="task-section task-requirements">
+                        <h4>📋 Technical Requirements</h4>
+                        <ul class="task-steps">
+                            <li>Create logo component with variants</li>
+                            <li>Develop 10-15 icons in unified style</li>
+                            <li>Create usage rules</li>
+                            <li>Add application examples</li>
+                            <li>Create usage guide</li>
+                        </ul>
+                    </div>
+                    <div class="task-section task-criteria">
+                        <h4>✅ Evaluation Criteria</h4>
+                        <ul class="task-steps">
+                            <li>Uniqueness and recognition</li>
+                            <li>Scalability</li>
+                            <li>Style unity</li>
+                            <li>Practical application</li>
+                        </ul>
+                    </div>
+                    <div class="task-section task-time">
+                        <h4>⏱️ Completion Time</h4>
+                        <p><strong>6-8 hours</strong> - including conceptualization and development</p>
+                    </div>
+                `
+            },
+            'task-color-palette': {
+                title: '🎯 Color System',
+                subtitle: 'Creating emotionally charged palette',
+                content: `
+                    <div class="task-section">
+                        <h4>🎨 Task</h4>
+                        <p>Develop a complete color system with choice justification and application examples.</p>
+                        <div class="task-highlight">
+                            <p>Goal: Create a functional and emotionally impactful color palette.</p>
+                        </div>
+                    </div>
+                    <div class="task-section task-requirements">
+                        <h4>📋 Technical Requirements</h4>
+                        <ul class="task-steps">
+                            <li>Create color styles in Figma</li>
+                            <li>Develop palette of 8-12 colors</li>
+                            <li>Create application examples</li>
+                            <li>Add usage rules</li>
+                            <li>Check contrast and accessibility</li>
+                        </ul>
+                    </div>
+                    <div class="task-section task-criteria">
+                        <h4>✅ Evaluation Criteria</h4>
+                        <ul class="task-steps">
+                            <li>Emotional impact</li>
+                            <li>Functionality</li>
+                            <li>Accessibility (contrast)</li>
+                            <li>Harmony of combinations</li>
+                        </ul>
+                    </div>
+                    <div class="task-section task-time">
+                        <h4>⏱️ Completion Time</h4>
+                        <p><strong>4-5 hours</strong> - including testing and validation</p>
+                    </div>
+                `
+            },
+            'task-typography': {
+                title: '🎯 Typography System',
+                subtitle: 'Creating readable and expressive text system',
+                content: `
+                    <div class="task-section">
+                        <h4>🎨 Task</h4>
+                        <p>Develop a complete typography system with hierarchy and application examples.</p>
+                        <div class="task-highlight">
+                            <p>Goal: Create a functional and expressive typography system.</p>
+                        </div>
+                    </div>
+                    <div class="task-section task-requirements">
+                        <h4>📋 Technical Requirements</h4>
+                        <ul class="task-steps">
+                            <li>Create text styles in Figma</li>
+                            <li>Develop heading hierarchy</li>
+                            <li>Create application examples</li>
+                            <li>Add usage rules</li>
+                            <li>Check readability on different devices</li>
+                        </ul>
+                    </div>
+                    <div class="task-section task-criteria">
+                        <h4>✅ Evaluation Criteria</h4>
+                        <ul class="task-steps">
+                            <li>Readability</li>
+                            <li>Hierarchy</li>
+                            <li>Style unity</li>
+                            <li>Functionality</li>
+                        </ul>
+                    </div>
+                    <div class="task-section task-time">
+                        <h4>⏱️ Completion Time</h4>
+                        <p><strong>3-4 hours</strong> - including testing and optimization</p>
+                    </div>
+                `
+            },
+            'task-design-tools': {
+                title: '🎯 Design System in Figma',
+                subtitle: 'Creating scalable component system',
+                content: `
+                    <div class="task-section">
+                        <h4>🎨 Задача</h4>
+                        <p>Создайте базовую дизайн-систему с компонентами, стилями и документацией.</p>
+                        <div class="task-highlight">
+                            <p>Цель: Научиться создавать переиспользуемые и масштабируемые дизайн-системы.</p>
+                        </div>
+                    </div>
+                    <div class="task-section task-requirements">
+                        <h4>📋 Техническое задание</h4>
+                        <ul class="task-steps">
+                            <li>Создайте библиотеку компонентов</li>
+                            <li>Настройте цветовые и текстовые стили</li>
+                            <li>Создайте базовые UI-компоненты</li>
+                            <li>Добавьте документацию</li>
+                            <li>Создайте примеры использования</li>
+                        </ul>
+                    </div>
+                    <div class="task-section task-criteria">
+                        <h4>✅ Критерии оценки</h4>
+                        <ul class="task-steps">
+                            <li>Переиспользуемость</li>
+                            <li>Консистентность</li>
+                            <li>Документированность</li>
+                            <li>Масштабируемость</li>
+                        </ul>
+                    </div>
+                    <div class="task-section task-time">
+                        <h4>⏱️ Время выполнения</h4>
+                        <p><strong>6-8 часов</strong> - включая создание компонентов и документации</p>
+                    </div>
+                `
+            },
+            'task-research-tools': {
+                title: '🎯 Interactive Prototype',
+                subtitle: 'Создание прототипа с анимациями и переходами',
+                content: `
+                    <div class="task-section">
+                        <h4>🎨 Задача</h4>
+                        <p>Создайте интерактивный прототип приложения с основными экранами и пользовательским сценарием.</p>
+                        <div class="task-highlight">
+                            <p>Цель: Научиться создавать функциональные прототипы для тестирования UX.</p>
+                        </div>
+                    </div>
+                    <div class="task-section task-requirements">
+                        <h4>📋 Техническое задание</h4>
+                        <ul class="task-steps">
+                            <li>Создайте 5-7 экранов</li>
+                            <li>Настройте переходы между экранами</li>
+                            <li>Добавьте микроанимации</li>
+                            <li>Создайте пользовательский сценарий</li>
+                            <li>Протестируйте на мобильных устройствах</li>
+                        </ul>
+                    </div>
+                    <div class="task-section task-criteria">
+                        <h4>✅ Критерии оценки</h4>
+                        <ul class="task-steps">
+                            <li>Логичность переходов</li>
+                            <li>Качество анимаций</li>
+                            <li>UX-логика</li>
+                            <li>Визуальная привлекательность</li>
+                        </ul>
+                    </div>
+                    <div class="task-section task-time">
+                        <h4>⏱️ Время выполнения</h4>
+                        <p><strong>8-10 часов</strong> - включая создание экранов и настройку анимаций</p>
+                    </div>
+                `
+            },
+            'task-successful-rebrands': {
+                title: '🎯 Successful Rebranding Analysis',
+                subtitle: 'Создание презентации с анализом кейса',
+                content: `
+                    <div class="task-section">
+                        <h4>🎨 Задача</h4>
+                        <p>Проведите детальный анализ одного успешного ребрендинга и создайте интерактивную презентацию.</p>
+                        <div class="task-highlight">
+                            <p>Цель: Изучить успешные стратегии и методы ребрендинга.</p>
+                        </div>
+                    </div>
+                    <div class="task-section task-requirements">
+                        <h4>📋 Техническое задание</h4>
+                        <ul class="task-steps">
+                            <li>Создайте 8-10 слайдов в Figma</li>
+                            <li>Добавьте визуальные примеры</li>
+                            <li>Используйте профессиональную типографику</li>
+                            <li>Создайте интерактивные элементы</li>
+                            <li>Добавьте анимации переходов</li>
+                        </ul>
+                    </div>
+                    <div class="task-section task-criteria">
+                        <h4>✅ Критерии оценки</h4>
+                        <ul class="task-steps">
+                            <li>Глубина анализа</li>
+                            <li>Качество визуализации</li>
+                            <li>Практическая ценность</li>
+                            <li>Профессиональное оформление</li>
+                        </ul>
+                    </div>
+                    <div class="task-section task-time">
+                        <h4>⏱️ Время выполнения</h4>
+                        <p><strong>4-5 часов</strong> - включая исследование и создание презентации</p>
+                    </div>
+                `
+            },
+            'task-failed-rebrands': {
+                title: '🎯 Failed Rebranding Analysis',
+                subtitle: 'Создание альтернативного решения',
+                content: `
+                    <div class="task-section">
+                        <h4>🎨 Задача</h4>
+                        <p>Проанализируйте неудачный ребрендинг и предложите альтернативное решение с обоснованием.</p>
+                        <div class="task-highlight">
+                            <p>Цель: Понять причины провалов и научиться создавать лучшие решения.</p>
+                        </div>
+                    </div>
+                    <div class="task-section task-requirements">
+                        <h4>📋 Техническое задание</h4>
+                        <ul class="task-steps">
+                            <li>Создайте сравнительную таблицу</li>
+                            <li>Предложите альтернативное решение</li>
+                            <li>Создайте визуальные примеры</li>
+                            <li>Добавьте обоснование</li>
+                            <li>Создайте интерактивную презентацию</li>
+                        </ul>
+                    </div>
+                    <div class="task-section task-criteria">
+                        <h4>✅ Критерии оценки</h4>
+                        <ul class="task-steps">
+                            <li>Точность анализа ошибок</li>
+                            <li>Качество альтернативного решения</li>
+                            <li>Обоснованность предложений</li>
+                            <li>Визуальная привлекательность</li>
+                        </ul>
+                    </div>
+                    <div class="task-section task-time">
+                        <h4>⏱️ Время выполнения</h4>
+                        <p><strong>5-6 часов</strong> - включая анализ и создание альтернативы</p>
+                    </div>
+                `
+            },
+            'task-quantitative-metrics': {
+                title: '🎯 Metrics Dashboard',
+                subtitle: 'Создание визуализации ключевых показателей',
+                content: `
+                    <div class="task-section">
+                        <h4>🎨 Задача</h4>
+                        <p>Создайте интерактивный дашборд для отслеживания эффективности визуальных решений.</p>
+                        <div class="task-highlight">
+                            <p>Цель: Научиться визуализировать и отслеживать метрики дизайна.</p>
+                        </div>
+                    </div>
+                    <div class="task-section task-requirements">
+                        <h4>📋 Техническое задание</h4>
+                        <ul class="task-steps">
+                            <li>Создайте артборд 1600x1000px</li>
+                            <li>Создайте интерактивные элементы</li>
+                            <li>Используйте графики и диаграммы</li>
+                            <li>Добавьте цветовое кодирование</li>
+                            <li>Создайте анимации для данных</li>
+                        </ul>
+                    </div>
+                    <div class="task-section task-criteria">
+                        <h4>✅ Критерии оценки</h4>
+                        <ul class="task-steps">
+                            <li>Наглядность данных</li>
+                            <li>Информативность</li>
+                            <li>Визуальная привлекательность</li>
+                            <li>Практическая применимость</li>
+                        </ul>
+                    </div>
+                    <div class="task-section task-time">
+                        <h4>⏱️ Время выполнения</h4>
+                        <p><strong>4-5 часов</strong> - включая создание визуализаций и интерактивности</p>
+                    </div>
+                `
+            },
+            'task-qualitative-metrics': {
+                title: '🎯 Interface A/B Test',
+                subtitle: 'Создание вариантов для тестирования',
+                content: `
+                    <div class="task-section">
+                        <h4>🎨 Задача</h4>
+                        <p>Создайте два варианта интерфейса для A/B тестирования с планом измерения результатов.</p>
+                        <div class="task-highlight">
+                            <p>Цель: Научиться создавать тестируемые варианты дизайна.</p>
+                        </div>
+                    </div>
+                    <div class="task-section task-requirements">
+                        <h4>📋 Техническое задание</h4>
+                        <ul class="task-steps">
+                            <li>Создайте два варианта экрана</li>
+                            <li>Добавьте аннотации различий</li>
+                            <li>Создайте план тестирования</li>
+                            <li>Подготовьте метрики для измерения</li>
+                            <li>Создайте интерактивные прототипы</li>
+                        </ul>
+                    </div>
+                    <div class="task-section task-criteria">
+                        <h4>✅ Критерии оценки</h4>
+                        <ul class="task-steps">
+                            <li>Четкие различия между вариантами</li>
+                            <li>Обоснованность изменений</li>
+                            <li>Качество реализации</li>
+                            <li>Готовность к тестированию</li>
+                        </ul>
+                    </div>
+                    <div class="task-section task-time">
+                        <h4>⏱️ Время выполнения</h4>
+                        <p><strong>3-4 часа</strong> - включая создание вариантов и плана тестирования</p>
+                    </div>
+                `
+            },
+            'task-portfolio-case': {
+                title: '🎯 Complete Rebranding Cycle',
+                subtitle: 'Создание портфолио-кейса с полным циклом разработки',
+                content: `
+                    <div class="task-section">
+                        <h4>🎨 Задача</h4>
+                        <p>Выполните полный цикл создания визуальной концепции для реального или вымышленного бренда.</p>
+                        <div class="task-highlight">
+                            <p>Цель: Создать портфолио-кейс, демонстрирующий все навыки концептуального мышления.</p>
+                        </div>
+                    </div>
+                    <div class="task-section task-requirements">
+                        <h4>📋 Техническое задание</h4>
+                        <ul class="task-steps">
+                            <li>Создайте отдельный файл Figma</li>
+                            <li>Структурируйте работу по разделам</li>
+                            <li>Добавьте подробную документацию</li>
+                            <li>Создайте презентацию результатов</li>
+                            <li>Включите все этапы: исследование → концепция → визуализация → применение</li>
+                        </ul>
+                    </div>
+                    <div class="task-section task-criteria">
+                        <h4>✅ Критерии оценки</h4>
+                        <ul class="task-steps">
+                            <li>Полнота цикла</li>
+                            <li>Качество решений</li>
+                            <li>Документированность</li>
+                            <li>Профессиональная подача</li>
+                            <li>Практическая применимость</li>
+                        </ul>
+                    </div>
+                    <div class="task-section task-time">
+                        <h4>⏱️ Время выполнения</h4>
+                        <p><strong>15-20 дней</strong> - полный цикл от исследования до презентации</p>
+                    </div>
+                `
+            }
+        };
+
+        // Popup content data
+        const popupData = {
+            'visual-concept': {
+                title: 'What is a Visual Concept?',
+                subtitle: 'Fundamentals of creating holistic visual solutions',
+                content: `
+                    <div class="popup-section">
+                        <h4>Definition</h4>
+                        <p>A visual concept is a holistic system of visual elements that forms a unique brand image and conveys its values, character and positioning through design.</p>
+                        <div class="popup-highlight">
+                            <p>A concept differs from design in that it defines "why" and "how", not just "what" it looks like.</p>
+                        </div>
+                    </div>
+                    <div class="popup-section">
+                        <h4>Key Components</h4>
+                        <ul>
+                            <li><strong>Visual Identity</strong> — logo, color palette, typography</li>
+                            <li><strong>Stylistic Principles</strong> — rules for applying elements</li>
+                            <li><strong>Emotional Tone</strong> — brand mood and character</li>
+                            <li><strong>Functional Requirements</strong> — adaptability and scalability</li>
+                        </ul>
+                    </div>
+                    <div class="popup-section">
+                        <h4>Integrity Principles</h4>
+                        <ul>
+                            <li>Unity of all elements</li>
+                            <li>Consistent application</li>
+                            <li>Flexibility for different contexts</li>
+                            <li>Recognition and memorability</li>
+                        </ul>
+                    </div>
+                `
+            },
+            'visual-concept-solution': {
+                title: '💡 Solution: Conceptual Button in Figma',
+                subtitle: 'Detailed guide to creating conceptual UI component',
+                content: `
+                    <div class="popup-section">
+                        <h4>🎯 Understanding the Conceptual Approach</h4>
+                        <div class="popup-highlight">
+                            <p><strong>Simple design</strong> — when we make a button beautiful but without deep meaning</p>
+                            <p><strong>Conceptual approach</strong> — when every design element has justification and serves a specific purpose</p>
+                        </div>
+                    </div>
+                    <div class="popup-section">
+                        <h4>📝 Step-by-Step Implementation Plan</h4>
+                        <h5>Phase 1: Preparation and Concept (30-40 min)</h5>
+                        <ol>
+                            <li><strong>Create a new Figma file</strong>
+                                <ul>
+                                    <li>Create artboard size 1200x800px</li>
+                                    <li>Name it "Conceptual Button"</li>
+                                </ul>
+                            </li>
+                            <li><strong>Choose a concept</strong>
+                                <ul>
+                                    <li><strong>"Trust and Security"</strong> (for banking button)</li>
+                                    <li><strong>"Speed and Energy"</strong> (for sports app)</li>
+                                    <li><strong>"Eco-friendliness"</strong> (for eco-product)</li>
+                                    <li><strong>"Premium"</strong> (for luxury brand)</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="popup-section">
+                        <h5>Phase 2: Simple Button Design (20-30 min)</h5>
+                        <ol>
+                            <li><strong>Create a basic button</strong>
+                                <ul>
+                                    <li>Rectangle with rounded corners</li>
+                                    <li>Simple text "Button"</li>
+                                    <li>Regular colors (e.g., blue background, white text)</li>
+                                </ul>
+                            </li>
+                            <li><strong>Add states</strong>
+                                <ul>
+                                    <li>Default: normal appearance</li>
+                                    <li>Hover: slightly lighter</li>
+                                    <li>Active: slightly darker</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="popup-section">
+                        <h5>Phase 3: Conceptual Button (60-90 min)</h5>
+                        <p><strong>For "Trust and Security" concept:</strong></p>
+                        <ul>
+                            <li><strong>Shape:</strong> More stable, with slight bottom bevel</li>
+                            <li><strong>Colors:</strong> Deep blue with golden accent</li>
+                            <li><strong>Typography:</strong> Serif font for solidity</li>
+                            <li><strong>Effects:</strong> Subtle shadow mimicking "weight" of decision</li>
+                            <li><strong>Icon:</strong> Shield or lock</li>
+                        </ul>
+                        <p><strong>Create 3 states:</strong></p>
+                        <ul>
+                            <li><strong>Default:</strong> Main appearance with conceptual elements</li>
+                            <li><strong>Hover:</strong> Enhanced effects (more light, movement)</li>
+                            <li><strong>Active:</strong> "Pressed" effect while maintaining concept</li>
+                        </ul>
+                    </div>
+                    <div class="popup-section">
+                        <h5>Phase 4: Component Creation (20-30 min)</h5>
+                        <ol>
+                            <li><strong>Set up Auto Layout</strong>
+                                <ul>
+                                    <li>Select button → Auto Layout</li>
+                                    <li>Set padding: 16px horizontal, 12px vertical</li>
+                                    <li>Configure Hug contents for responsiveness</li>
+                                </ul>
+                            </li>
+                            <li><strong>Create component</strong>
+                                <ul>
+                                    <li>Select button → Create Component</li>
+                                    <li>Create variants for each state</li>
+                                    <li>Configure properties (State: Default/Hover/Active)</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="popup-section">
+                        <h5>Phase 5: Annotations (30-40 min)</h5>
+                        <p><strong>Create text blocks with justifications:</strong></p>
+                        <div class="popup-highlight">
+                            <p><strong>Concept:</strong> "Trust and Security"</p>
+                            <p><strong>Target Audience:</strong> Banking app users</p>
+                        </div>
+                        <p><strong>Justification for each element:</strong></p>
+                        <ul>
+                            <li><strong>SHAPE:</strong> Stable trapezoidal form creates sense of reliability and stability</li>
+                            <li><strong>COLOR:</strong> Dark blue (#1B365D) - trust color in financial sector, golden accents add premium feel</li>
+                            <li><strong>TYPOGRAPHY:</strong> Inter Medium 16px - modern but stable font, good readability</li>
+                            <li><strong>SHADOW:</strong> Soft shadow creates depth, emphasizes importance of action</li>
+                        </ul>
+                    </div>
+                    <div class="popup-section">
+                        <h4>🛠 Technical Details</h4>
+                        <p><strong>Auto Layout settings:</strong></p>
+                        <ul>
+                            <li>Direction: Horizontal</li>
+                            <li>Spacing: 8px (between icon and text)</li>
+                            <li>Padding: 16px horizontal, 12px vertical</li>
+                            <li>Resizing: Hug contents</li>
+                        </ul>
+                        <p><strong>Creating component variants:</strong></p>
+                        <ol>
+                            <li>Select main component</li>
+                            <li>Right panel → Add variant</li>
+                            <li>Name property "State"</li>
+                            <li>Create values: Default, Hover, Active</li>
+                        </ol>
+                    </div>
+                    <div class="popup-section">
+                        <h4>✅ Quality Criteria</h4>
+                        <p><strong>Clear distinction:</strong></p>
+                        <ul>
+                            <li>Simple button = beautiful without meaning</li>
+                            <li>Conceptual = every element is justified</li>
+                        </ul>
+                        <p><strong>Quality annotations:</strong></p>
+                        <ul>
+                            <li>Explain ALL decisions</li>
+                            <li>Show connection with target audience</li>
+                            <li>Use professional terminology</li>
+                        </ul>
+                        <p><strong>Technical quality:</strong></p>
+                        <ul>
+                            <li>All elements aligned</li>
+                            <li>Components work correctly</li>
+                            <li>Auto Layout configured properly</li>
+                        </ul>
+                    </div>
+                    <div class="popup-section">
+                        <h4>⏰ Timing by phases:</h4>
+                        <ul>
+                            <li>Concept: 40 min</li>
+                            <li>Simple button: 30 min</li>
+                            <li>Conceptual button: 90 min</li>
+                            <li>Component: 30 min</li>
+                            <li>Annotations: 40 min</li>
+                            <li><strong>Total: ~3.5 hours</strong></li>
+                        </ul>
+                        <div class="popup-highlight">
+                            <p><strong>Remember — the concept should be visible visually, not just in description!</strong></p>
+                        </div>
+                    </div>
+                `
+            },
+            'psychology': {
+                title: 'Perception Psychology',
+                subtitle: 'How visual elements influence brand perception',
+                content: `
+                    <div class="popup-section">
+                        <h4>Color Psychology</h4>
+                        <p>Colors evoke certain emotions and associations. Understanding color psychology helps create the desired impression.</p>
+                        <ul>
+                            <li><strong>Red</strong> — energy, passion, urgency</li>
+                            <li><strong>Blue</strong> — trust, stability, professionalism</li>
+                            <li><strong>Green</strong> — growth, nature, calm</li>
+                            <li><strong>Yellow</strong> — optimism, creativity, attention</li>
+                        </ul>
+                    </div>
+                    <div class="popup-section">
+                        <h4>Typography Psychology</h4>
+                        <p>Fonts convey brand character and mood. Typography choice affects perception of reliability and style.</p>
+                        <ul>
+                            <li><strong>Serif</strong> — tradition, elegance, authority</li>
+                            <li><strong>Sans-serif</strong> — modernity, simplicity, accessibility</li>
+                            <li><strong>Script</strong> — creativity, individuality, luxury</li>
+                        </ul>
+                    </div>
+                    <div class="popup-section">
+                        <h4>Compositional Principles</h4>
+                        <ul>
+                            <li><strong>Balance</strong> — visual equilibrium of elements</li>
+                            <li><strong>Hierarchy</strong> — order of information importance</li>
+                            <li><strong>Contrast</strong> — highlighting key elements</li>
+                            <li><strong>Repetition</strong> — creating rhythm and unity</li>
+                        </ul>
+                    </div>
+                `
+            },
+            'moodboarding': {
+                title: 'Moodboarding',
+                subtitle: 'Creating emotional map of visual concept',
+                content: `
+                    <div class="popup-section">
+                        <h4>What is a Moodboard?</h4>
+                        <p>A moodboard is a visual collage of images, colors, textures and styles that conveys the mood and atmosphere of the future concept.</p>
+                        <div class="popup-highlight">
+                            <p>A moodboard helps the client "feel" the concept before creating the final design.</p>
+                        </div>
+                    </div>
+                    <div class="popup-section">
+                        <h4>Creation Process</h4>
+                        <ul>
+                            <li><strong>Research</strong> — collecting references from different sources</li>
+                            <li><strong>Categorization</strong> — grouping by styles and moods</li>
+                            <li><strong>Selection</strong> — choosing the most suitable elements</li>
+                            <li><strong>Composition</strong> — creating a holistic composition</li>
+                        </ul>
+                    </div>
+                    <div class="popup-section">
+                        <h4>Элементы мудборда</h4>
+                        <ul>
+                            <li>Цветовые палитры и градиенты</li>
+                            <li>Типографические примеры</li>
+                            <li>Фотографии и иллюстрации</li>
+                            <li>Текстуры и паттерны</li>
+                            <li>Примеры логотипов и иконок</li>
+                        </ul>
+                    </div>
+                `
+            },
+            'key-elements': {
+                title: 'Ключевые элементы концепции',
+                subtitle: 'Формирование основных компонентов визуальной системы',
+                content: `
+                    <div class="popup-section">
+                        <h4>Определение визуальных элементов</h4>
+                        <p>На основе мудборда и анализа определяются ключевые визуальные элементы, которые станут основой концепции.</p>
+                        <ul>
+                            <li>Стилистические направления</li>
+                            <li>Цветовые решения</li>
+                            <li>Типографические предпочтения</li>
+                            <li>Графические элементы</li>
+                        </ul>
+                    </div>
+                    <div class="popup-section">
+                        <h4>Концептуальный бриф</h4>
+                        <p>Документ, который описывает суть концепции, ее цели и принципы применения.</p>
+                        <div class="popup-highlight">
+                            <p>Бриф должен быть понятен не только дизайнерам, но и всем участникам проекта.</p>
+                        </div>
+                    </div>
+                    <div class="popup-section">
+                        <h4>Валидация концепции</h4>
+                        <ul>
+                            <li>Тестирование на целевой аудитории</li>
+                            <li>Проверка на конкурентах</li>
+                            <li>Оценка применимости в разных контекстах</li>
+                            <li>Корректировка на основе обратной связи</li>
+                        </ul>
+                    </div>
+                `
+            },
+            'competitor-analysis': {
+                title: 'Анализ конкурентов',
+                subtitle: 'Систематическое изучение визуальных стратегий конкурентов',
+                content: `
+                    <div class="popup-section">
+                        <h4>Визуальный аудит рынка</h4>
+                        <p>Комплексное исследование визуальных решений всех ключевых игроков на рынке для понимания общих трендов и стандартов.</p>
+                        <ul>
+                            <li><strong>Сбор данных</strong> — логотипы, цветовые палитры, типографика</li>
+                            <li><strong>Категоризация</strong> — группировка по стилям и подходам</li>
+                            <li><strong>Анализ трендов</strong> — выявление популярных направлений</li>
+                            <li><strong>Документирование</strong> — создание базы референсов</li>
+                        </ul>
+                    </div>
+                    <div class="popup-section">
+                        <h4>Выявление трендов и паттернов</h4>
+                        <p>Анализ повторяющихся элементов и подходов в индустрии для понимания ожиданий аудитории.</p>
+                        <div class="popup-highlight">
+                            <p>Важно найти баланс между следованием трендам и созданием уникального решения.</p>
+                        </div>
+                        <ul>
+                            <li>Цветовые тренды в индустрии</li>
+                            <li>Популярные стили типографики</li>
+                            <li>Композиционные решения</li>
+                            <li>Использование иконографии</li>
+                        </ul>
+                    </div>
+                    <div class="popup-section">
+                        <h4>Поиск белых пятен</h4>
+                        <p>Выявление неиспользованных возможностей и ниш для создания уникального позиционирования.</p>
+                        <ul>
+                            <li>Недооцененные цветовые комбинации</li>
+                            <li>Альтернативные стилистические подходы</li>
+                            <li>Инновационные композиционные решения</li>
+                            <li>Возможности для эмоционального воздействия</li>
+                        </ul>
+                    </div>
+                `
+            },
+            'brand-analysis': {
+                title: 'Анализ бренда',
+                subtitle: 'Глубокое понимание сущности и позиционирования бренда',
+                content: `
+                    <div class="popup-section">
+                        <h4>Позиционирование и ценности</h4>
+                        <p>Определение уникального места бренда на рынке и его ключевых ценностей, которые должны отражаться в визуальной концепции.</p>
+                        <ul>
+                            <li><strong>Миссия и видение</strong> — основополагающие принципы</li>
+                            <li><strong>Целевая аудитория</strong> — кому адресован бренд</li>
+                            <li><strong>Уникальные преимущества</strong> — что отличает от конкурентов</li>
+                            <li><strong>Эмоциональные ассоциации</strong> — какие чувства должен вызывать</li>
+                        </ul>
+                    </div>
+                    <div class="popup-section">
+                        <h4>Уникальное торговое предложение</h4>
+                        <p>Ключевое сообщение, которое бренд хочет донести до аудитории через визуальные средства.</p>
+                        <div class="popup-highlight">
+                            <p>Визуальная концепция должна усиливать и поддерживать УТП бренда.</p>
+                        </div>
+                        <ul>
+                            <li>Формулирование ключевого сообщения</li>
+                            <li>Определение тона коммуникации</li>
+                            <li>Выбор эмоционального воздействия</li>
+                            <li>Создание визуальных метафор</li>
+                        </ul>
+                    </div>
+                    <div class="popup-section">
+                        <h4>История и наследие</h4>
+                        <p>Анализ исторического контекста бренда для понимания того, что можно сохранить, а что нужно обновить.</p>
+                        <ul>
+                            <li>Эволюция визуальной идентичности</li>
+                            <li>Культурное и историческое значение</li>
+                            <li>Элементы, которые нужно сохранить</li>
+                            <li>Аспекты, требующие модернизации</li>
+                        </ul>
+                    </div>
+                `
+            },
+            'audience-analysis': {
+                title: 'Анализ аудитории',
+                subtitle: 'Понимание потребностей и предпочтений целевой аудитории',
+                content: `
+                    <div class="popup-section">
+                        <h4>Демография и психография</h4>
+                        <p>Изучение количественных и качественных характеристик аудитории для создания релевантной визуальной концепции.</p>
+                        <ul>
+                            <li><strong>Возраст и пол</strong> — базовые демографические данные</li>
+                            <li><strong>Образование и доход</strong> — социально-экономический статус</li>
+                            <li><strong>Интересы и хобби</strong> — психографические характеристики</li>
+                            <li><strong>Ценности и убеждения</strong> — глубинные мотивации</li>
+                        </ul>
+                    </div>
+                    <div class="popup-section">
+                        <h4>Поведенческие паттерны</h4>
+                        <p>Анализ того, как аудитория взаимодействует с брендами и визуальным контентом.</p>
+                        <div class="popup-highlight">
+                            <p>Понимание поведения помогает создать более эффективные визуальные решения.</p>
+                        </div>
+                        <ul>
+                            <li>Предпочитаемые каналы коммуникации</li>
+                            <li>Время и частота взаимодействия</li>
+                            <li>Стиль потребления контента</li>
+                            <li>Реакция на различные визуальные стили</li>
+                        </ul>
+                    </div>
+                    <div class="popup-section">
+                        <h4>Визуальные предпочтения</h4>
+                        <p>Исследование того, какие визуальные решения лучше всего резонируют с аудиторией.</p>
+                        <ul>
+                            <li>Предпочитаемые цветовые палитры</li>
+                            <li>Стили типографики</li>
+                            <li>Композиционные предпочтения</li>
+                            <li>Реакция на различные стили дизайна</li>
+                        </ul>
+                    </div>
+                `
+            },
+            'logo-system': {
+                title: 'Логотип и знаковая система',
+                subtitle: 'Создание центрального элемента визуальной идентичности',
+                content: `
+                    <div class="popup-section">
+                        <h4>Создание логотипа</h4>
+                        <p>Разработка основного графического символа бренда, который станет его визуальным воплощением.</p>
+                        <ul>
+                            <li><strong>Концептуальная основа</strong> — идея и смысл логотипа</li>
+                            <li><strong>Стилистическое направление</strong> — визуальный стиль</li>
+                            <li><strong>Техническая реализация</strong> — векторная графика</li>
+                            <li><strong>Тестирование</strong> — проверка на различных размерах</li>
+                        </ul>
+                    </div>
+                    <div class="popup-section">
+                        <h4>Разработка знаковой системы</h4>
+                        <p>Создание дополнительных графических элементов, которые дополняют и поддерживают логотип.</p>
+                        <div class="popup-highlight">
+                            <p>Знаковая система обеспечивает гибкость и консистентность визуальной коммуникации.</p>
+                        </div>
+                        <ul>
+                            <li>Иконки и пиктограммы</li>
+                            <li>Декоративные элементы</li>
+                            <li>Паттерны и текстуры</li>
+                            <li>Иллюстративные элементы</li>
+                        </ul>
+                    </div>
+                    <div class="popup-section">
+                        <h4>Вариации и адаптации</h4>
+                        <p>Создание различных версий логотипа для использования в разных контекстах и на различных носителях.</p>
+                        <ul>
+                            <li>Горизонтальные и вертикальные версии</li>
+                            <li>Монохромные варианты</li>
+                            <li>Упрощенные версии для малых размеров</li>
+                            <li>Адаптации для темной и светлой темы</li>
+                        </ul>
+                    </div>
+                `
+            },
+            'color-palette': {
+                title: 'Цветовая палитра',
+                subtitle: 'Создание эмоционально заряженной цветовой системы',
+                content: `
+                    <div class="popup-section">
+                        <h4>Основные и дополнительные цвета</h4>
+                        <p>Разработка иерархической системы цветов, которая поддерживает бренд и обеспечивает функциональность.</p>
+                        <ul>
+                            <li><strong>Основной цвет</strong> — доминирующий цвет бренда</li>
+                            <li><strong>Вторичные цвета</strong> — поддерживающие оттенки</li>
+                            <li><strong>Акцентные цвета</strong> — для выделения важных элементов</li>
+                            <li><strong>Нейтральные цвета</strong> — для текста и фонов</li>
+                        </ul>
+                    </div>
+                    <div class="popup-section">
+                        <h4>Психология цвета</h4>
+                        <p>Использование психологического воздействия цветов для создания нужного эмоционального отклика.</p>
+                        <div class="popup-highlight">
+                            <p>Цвета должны соответствовать характеру бренда и ожиданиям аудитории.</p>
+                        </div>
+                        <ul>
+                            <li>Эмоциональные ассоциации цветов</li>
+                            <li>Культурные особенности восприятия</li>
+                            <li>Возрастные предпочтения</li>
+                            <li>Гендерные различия в восприятии</li>
+                        </ul>
+                    </div>
+                    <div class="popup-section">
+                        <h4>Контрастность и доступность</h4>
+                        <p>Обеспечение читаемости и доступности цветовых решений для всех пользователей.</p>
+                        <ul>
+                            <li>Соответствие стандартам WCAG</li>
+                            <li>Проверка на цветовую слепоту</li>
+                            <li>Контрастность текста и фона</li>
+                            <li>Тестирование на различных устройствах</li>
+                        </ul>
+                    </div>
+                `
+            },
+            'typography': {
+                title: 'Типографика',
+                subtitle: 'Создание читаемой и выразительной текстовой системы',
+                content: `
+                    <div class="popup-section">
+                        <h4>Выбор шрифтовых семейств</h4>
+                        <p>Подбор шрифтов, которые отражают характер бренда и обеспечивают отличную читаемость.</p>
+                        <ul>
+                            <li><strong>Основной шрифт</strong> — для основного текста</li>
+                            <li><strong>Заголовочный шрифт</strong> — для заголовков и акцентов</li>
+                            <li><strong>Моноширинный шрифт</strong> — для кода и данных</li>
+                            <li><strong>Декоративный шрифт</strong> — для особых случаев</li>
+                        </ul>
+                    </div>
+                    <div class="popup-section">
+                        <h4>Иерархия текста</h4>
+                        <p>Создание четкой структуры текстового контента для улучшения восприятия информации.</p>
+                        <div class="popup-highlight">
+                            <p>Правильная типографическая иерархия улучшает UX и читаемость контента.</p>
+                        </div>
+                        <ul>
+                            <li>Размеры шрифтов (H1-H6)</li>
+                            <li>Межстрочные интервалы</li>
+                            <li>Межбуквенные интервалы</li>
+                            <li>Отступы и выравнивание</li>
+                        </ul>
+                    </div>
+                    <div class="popup-section">
+                        <h4>Читаемость и функциональность</h4>
+                        <p>Обеспечение максимальной читаемости текста в различных контекстах и на разных устройствах.</p>
+                        <ul>
+                            <li>Оптимальные размеры для экранов</li>
+                            <li>Адаптивная типографика</li>
+                            <li>Поддержка различных языков</li>
+                            <li>Тестирование на мобильных устройствах</li>
+                        </ul>
+                    </div>
+                `
+            },
+            'design-tools': {
+                title: 'Дизайн-инструменты',
+                subtitle: 'Современные инструменты для создания визуальных концепций',
+                content: `
+                    <div class="popup-section">
+                        <h4>Figma</h4>
+                        <p>Облачная платформа для создания дизайн-систем, прототипов и совместной работы.</p>
+                        <ul>
+                            <li><strong>Преимущества</strong> — облачная работа, компоненты, автолейаут</li>
+                            <li><strong>Применение</strong> — создание дизайн-систем, прототипирование</li>
+                            <li><strong>Коллаборация</strong> — совместная работа команды</li>
+                            <li><strong>Интеграции</strong> — связь с другими инструментами</li>
+                        </ul>
+                    </div>
+                    <div class="popup-section">
+                        <h4>Adobe Creative Suite</h4>
+                        <p>Профессиональные инструменты для создания сложных визуальных решений.</p>
+                        <div class="popup-highlight">
+                            <p>Adobe остается стандартом индустрии для профессионального дизайна.</p>
+                        </div>
+                        <ul>
+                            <li><strong>Photoshop</strong> — обработка изображений и композитинг</li>
+                            <li><strong>Illustrator</strong> — векторная графика и логотипы</li>
+                            <li><strong>InDesign</strong> — верстка и полиграфия</li>
+                            <li><strong>After Effects</strong> — анимация и моушн-дизайн</li>
+                        </ul>
+                    </div>
+                    <div class="popup-section">
+                        <h4>Sketch и альтернативы</h4>
+                        <p>Специализированные инструменты для UI/UX дизайна и создания интерфейсов.</p>
+                        <ul>
+                            <li><strong>Sketch</strong> — для Mac-пользователей</li>
+                            <li><strong>Principle/Framer</strong> — анимация и интерактивность</li>
+                            <li><strong>InVision</strong> — прототипирование и тестирование</li>
+                            <li><strong>Zeplin</strong> — передача дизайна разработчикам</li>
+                        </ul>
+                    </div>
+                `
+            },
+            'research-tools': {
+                title: 'Исследовательские инструменты',
+                subtitle: 'Инструменты для анализа и исследования в дизайне',
+                content: `
+                    <div class="popup-section">
+                        <h4>Miro/Mural</h4>
+                        <p>Интерактивные доски для мудбординга, мозговых штурмов и систематизации идей.</p>
+                        <ul>
+                            <li><strong>Мудбординг</strong> — создание визуальных коллаций</li>
+                            <li><strong>Картирование идей</strong> — структурирование концепций</li>
+                            <li><strong>Коллаборация</strong> — совместная работа команды</li>
+                            <li><strong>Шаблоны</strong> — готовые структуры для работы</li>
+                        </ul>
+                    </div>
+                    <div class="popup-section">
+                        <h4>Notion</h4>
+                        <p>Универсальный инструмент для документирования, систематизации и управления проектами.</p>
+                        <div class="popup-highlight">
+                            <p>Notion помогает организовать весь процесс создания визуальной концепции.</p>
+                        </div>
+                        <ul>
+                            <li><strong>Документирование</strong> — создание брифов и отчетов</li>
+                            <li><strong>База знаний</strong> — хранение референсов и ресурсов</li>
+                            <li><strong>Планирование</strong> — управление задачами и сроками</li>
+                            <li><strong>Презентации</strong> — создание отчетов для клиентов</li>
+                        </ul>
+                    </div>
+                    <div class="popup-section">
+                        <h4>Аналитические инструменты</h4>
+                        <p>Инструменты для анализа поведения пользователей и эффективности дизайна.</p>
+                        <ul>
+                            <li><strong>Google Analytics</strong> — анализ поведения пользователей</li>
+                            <li><strong>Hotjar</strong> — визуальная аналитика и тепловые карты</li>
+                            <li><strong>UserTesting</strong> — тестирование с реальными пользователями</li>
+                            <li><strong>Optimal Workshop</strong> — карточная сортировка и тестирование</li>
+                        </ul>
+                    </div>
+                `
+            },
+            'successful-rebrands': {
+                title: 'Успешные ребрендинги',
+                subtitle: 'Анализ кейсов успешного обновления визуальной идентичности',
+                content: `
+                    <div class="popup-section">
+                        <h4>Airbnb (2014)</h4>
+                        <p>Создание символа "Bélo" — универсального символа принадлежности, который стал культовым элементом бренда.</p>
+                        <ul>
+                            <li><strong>Концепция</strong> — символ принадлежности и путешествий</li>
+                            <li><strong>Процесс</strong> — 4 месяца разработки, 100+ итераций</li>
+                            <li><strong>Результат</strong> — узнаваемый символ, усиление эмоциональной связи</li>
+                            <li><strong>Уроки</strong> — важность смысла и эмоционального воздействия</li>
+                        </ul>
+                    </div>
+                    <div class="popup-section">
+                        <h4>Spotify (2015)</h4>
+                        <p>Упрощение и унификация визуального языка для улучшения пользовательского опыта.</p>
+                        <div class="popup-highlight">
+                            <p>Spotify показал, как упрощение может усилить бренд.</p>
+                        </div>
+                        <ul>
+                            <li><strong>Подход</strong> — минимализм и функциональность</li>
+                            <li><strong>Цветовая палитра</strong> — яркий зеленый как основной цвет</li>
+                            <li><strong>Типографика</strong> — четкая иерархия и читаемость</li>
+                            <li><strong>Результат</strong> — улучшение UX и узнаваемости</li>
+                        </ul>
+                    </div>
+                    <div class="popup-section">
+                        <h4>Mastercard (2016)</h4>
+                        <p>Минималистичный подход к логотипу, который сохранил узнаваемость, но стал более современным.</p>
+                        <ul>
+                            <li><strong>Стратегия</strong> — эволюция, а не революция</li>
+                            <li><strong>Дизайн</strong> — упрощение до двух кругов</li>
+                            <li><strong>Адаптивность</strong> — работа в цифровой среде</li>
+                            <li><strong>Успех</strong> — сохранение узнаваемости при модернизации</li>
+                        </ul>
+                    </div>
+                `
+            },
+            'failed-rebrands': {
+                title: 'Неудачные примеры',
+                subtitle: 'Уроки из провальных ребрендингов',
+                content: `
+                    <div class="popup-section">
+                        <h4>Gap (2010)</h4>
+                        <p>Быстрый откат изменений из-за негативной реакции аудитории на новый логотип.</p>
+                        <ul>
+                            <li><strong>Ошибка</strong> — игнорирование эмоциональной связи с брендом</li>
+                            <li><strong>Процесс</strong> — отсутствие тестирования с аудиторией</li>
+                            <li><strong>Реакция</strong> — массовые протесты в социальных сетях</li>
+                            <li><strong>Урок</strong> — важность учета истории бренда</li>
+                        </ul>
+                    </div>
+                    <div class="popup-section">
+                        <h4>Tropicana (2009)</h4>
+                        <p>Потеря узнаваемости продукта из-за кардинального изменения упаковки.</p>
+                        <div class="popup-highlight">
+                            <p>Tropicana потеряла 20% продаж за 2 месяца после ребрендинга.</p>
+                        </div>
+                        <ul>
+                            <li><strong>Проблема</strong> — удаление узнаваемых элементов</li>
+                            <li><strong>Последствия</strong> — снижение продаж на 20%</li>
+                            <li><strong>Откат</strong> — возврат к оригинальному дизайну</li>
+                            <li><strong>Урок</strong> — важность сохранения ключевых элементов</li>
+                        </ul>
+                    </div>
+                    <div class="popup-section">
+                        <h4>Общие уроки</h4>
+                        <p>Ключевые принципы, которые помогают избежать ошибок в ребрендинге.</p>
+                        <ul>
+                            <li>Тестирование с реальной аудиторией</li>
+                            <li>Постепенное внедрение изменений</li>
+                            <li>Сохранение ключевых элементов</li>
+                            <li>Четкое обоснование изменений</li>
+                        </ul>
+                    </div>
+                `
+            },
+            'quantitative-metrics': {
+                title: 'Количественные показатели',
+                subtitle: 'Измеряемые результаты эффективности визуальных решений',
+                content: `
+                    <div class="popup-section">
+                        <h4>Узнаваемость бренда (+25%)</h4>
+                        <p>Увеличение способности аудитории идентифицировать бренд среди конкурентов.</p>
+                        <ul>
+                            <li><strong>Методы измерения</strong> — опросы, тесты на узнаваемость</li>
+                            <li><strong>Временные рамки</strong> — до и после внедрения</li>
+                            <li><strong>Целевые показатели</strong> — рост на 20-30%</li>
+                            <li><strong>Факторы влияния</strong> — консистентность применения</li>
+                        </ul>
+                    </div>
+                    <div class="popup-section">
+                        <h4>Конверсия (+15%)</h4>
+                        <p>Улучшение показателей конверсии благодаря более эффективному визуальному дизайну.</p>
+                        <div class="popup-highlight">
+                            <p>Хороший дизайн напрямую влияет на бизнес-показатели.</p>
+                        </div>
+                        <ul>
+                            <li><strong>Типы конверсии</strong> — регистрации, покупки, подписки</li>
+                            <li><strong>Измерение</strong> — A/B тестирование</li>
+                            <li><strong>Оптимизация</strong> — итеративное улучшение</li>
+                            <li><strong>ROI</strong> — возврат инвестиций в дизайн</li>
+                        </ul>
+                    </div>
+                    <div class="popup-section">
+                        <h4>Эффективность (-40% времени)</h4>
+                        <p>Сокращение времени на создание маркетинговых материалов благодаря четкой дизайн-системе.</p>
+                        <ul>
+                            <li><strong>Дизайн-система</strong> — готовые компоненты и шаблоны</li>
+                            <li><strong>Автоматизация</strong> — инструменты для быстрого создания</li>
+                            <li><strong>Обучение</strong> — стандартизация процессов</li>
+                            <li><strong>Качество</strong> — консистентность без потери качества</li>
+                        </ul>
+                    </div>
+                `
+            },
+            'qualitative-metrics': {
+                title: 'Качественные показатели',
+                subtitle: 'Нематериальные результаты визуальных решений',
+                content: `
+                    <div class="popup-section">
+                        <h4>Восприятие бренда</h4>
+                        <p>Изменения в ассоциациях и эмоциональной связи с аудиторией.</p>
+                        <ul>
+                            <li><strong>Эмоциональные ассоциации</strong> — какие чувства вызывает бренд</li>
+                            <li><strong>Персональность</strong> — восприятие характера бренда</li>
+                            <li><strong>Доверие</strong> — уровень доверия к бренду</li>
+                            <li><strong>Премиальность</strong> — восприятие качества и ценности</li>
+                        </ul>
+                    </div>
+                    <div class="popup-section">
+                        <h4>Дифференциация</h4>
+                        <p>Уникальность на рынке и конкурентные преимущества.</p>
+                        <div class="popup-highlight">
+                            <p>Визуальная дифференциация помогает выделиться среди конкурентов.</p>
+                        </div>
+                        <ul>
+                            <li><strong>Уникальность</strong> — отличия от конкурентов</li>
+                            <li><strong>Запоминаемость</strong> — способность запомниться</li>
+                            <li><strong>Актуальность</strong> — соответствие современным трендам</li>
+                            <li><strong>Инновационность</strong> — восприятие как новатора</li>
+                        </ul>
+                    </div>
+                    <div class="popup-section">
+                        <h4>Масштабируемость</h4>
+                        <p>Применимость в разных контекстах и каналах коммуникации.</p>
+                        <ul>
+                            <li><strong>Адаптивность</strong> — работа в разных форматах</li>
+                            <li><strong>Гибкость</strong> — возможность вариаций</li>
+                            <li><strong>Консистентность</strong> — единообразие применения</li>
+                            <li><strong>Долговечность</strong> — актуальность в долгосрочной перспективе</li>
+                        </ul>
+                    </div>
+                `
+            },
+            'portfolio-case': {
+                title: 'Создание портфолио-кейса',
+                subtitle: 'Полный цикл разработки визуальной концепции',
+                content: `
+                    <div class="popup-section">
+                        <h4>Требования к проекту</h4>
+                        <p>Создание комплексного кейса, демонстрирующего все этапы работы над визуальной концепцией.</p>
+                        <ul>
+                            <li><strong>Полный цикл</strong> — от исследования до реализации</li>
+                            <li><strong>Документирование</strong> — подробное описание процесса</li>
+                            <li><strong>Обоснование</strong> — логика принятых решений</li>
+                            <li><strong>Результаты</strong> — измерение эффективности</li>
+                            <li><strong>Презентация</strong> — профессиональная подача</li>
+                        </ul>
+                    </div>
+                    <div class="popup-section">
+                        <h4>Структура кейса</h4>
+                        <p>Рекомендуемая структура для создания убедительного портфолио-кейса.</p>
+                        <div class="popup-highlight">
+                            <p>Хороший кейс рассказывает историю от проблемы к решению.</p>
+                        </div>
+                        <ul>
+                            <li><strong>Бриф</strong> — описание задачи и контекста</li>
+                            <li><strong>Исследование</strong> — анализ и инсайты</li>
+                            <li><strong>Концепция</strong> — идея и обоснование</li>
+                            <li><strong>Реализация</strong> — финальные решения</li>
+                            <li><strong>Результаты</strong> — эффект и метрики</li>
+                        </ul>
+                    </div>
+                    <div class="popup-section">
+                        <h4>Критерии оценки</h4>
+                        <p>Ключевые аспекты, по которым оценивается качество портфолио-кейса.</p>
+                        <ul>
+                            <li><strong>Стратегичность</strong> — связь с бизнес-целями</li>
+                            <li><strong>Целостность</strong> — единство всех элементов</li>
+                            <li><strong>Инновационность</strong> — креативность решения</li>
+                            <li><strong>Практичность</strong> — применимость в реальности</li>
+                            <li><strong>Презентация</strong> — качество подачи материала</li>
+                        </ul>
+                    </div>
+                `
+            }
+        };
+
+        function openPopup(topicId) {
+            const data = popupData[topicId];
+            if (!data) return;
+
+            document.getElementById('popupTitle').textContent = data.title;
+            document.getElementById('popupSubtitle').textContent = data.subtitle;
+            document.getElementById('popupContent').innerHTML = data.content;
+            
+            const overlay = document.getElementById('popupOverlay');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePopup() {
+            const overlay = document.getElementById('popupOverlay');
+            overlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function openTaskPopup(taskId) {
+            const data = taskData[taskId];
+            if (!data) return;
+
+            document.getElementById('taskPopupTitle').textContent = data.title;
+            document.getElementById('taskPopupSubtitle').textContent = data.subtitle;
+            document.getElementById('taskPopupContent').innerHTML = data.content;
+            
+            const overlay = document.getElementById('taskPopupOverlay');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeTaskPopup() {
+            const overlay = document.getElementById('taskPopupOverlay');
+            overlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close popup when clicking outside
+        document.getElementById('popupOverlay').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePopup();
+            }
+        });
+
+        // Close task popup when clicking outside
+        document.getElementById('taskPopupOverlay').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeTaskPopup();
+            }
+        });
+
+        // Close popup with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closePopup();
+                closeTaskPopup();
+            }
+        });
+
+        function toggleSection(sectionId) {
+            const section = document.querySelector(`[data-section="${sectionId}"]`);
+            const content = document.getElementById(sectionId);
+            const header = section.querySelector('.section-header');
+            const indicator = section.querySelector('.progress-indicator');
+            
+            // Toggle active state
+            const isActive = content.classList.contains('active');
+            
+            // Close all sections
+            document.querySelectorAll('.section-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.section-header').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.progress-indicator').forEach(el => el.classList.remove('active'));
+            
+            // Open clicked section if it wasn't active
+            if (!isActive) {
+                content.classList.add('active');
+                header.classList.add('active');
+                indicator.classList.add('active');
+                
+                // Mark as completed
+                completedSections.add(sectionId);
+            }
+            
+            updateProgress();
+            updateNavigation();
+        }
+
+        function scrollToSection(sectionId) {
+            const section = document.querySelector(`[data-section="${sectionId}"]`);
+            section.scrollIntoView({ behavior: 'smooth' });
+            toggleSection(sectionId);
+            
+            // Close mobile menu after navigation
+            if (window.innerWidth <= 768) {
+                closeMobileMenu();
+            }
+        }
+
+        function toggleMobileMenu() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('mobile-open');
+        }
+
+        function closeMobileMenu() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.remove('mobile-open');
+        }
+
+        function updateProgress() {
+            const progress = (completedSections.size / totalSections) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('progressText').textContent = completedSections.size;
+        }
+
+        function updateNavigation() {
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            completedSections.forEach(sectionId => {
+                const link = document.querySelector(`[href="#${sectionId}"]`);
+                if (link) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // Initialize with first section open
+        document.addEventListener('DOMContentLoaded', function() {
+            toggleSection('intro');
+            
+            // Handle window resize
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768) {
+                    closeMobileMenu();
+                }
+            });
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(e) {
+                const sidebar = document.getElementById('sidebar');
+                const toggle = document.querySelector('.mobile-menu-toggle');
+                
+                if (window.innerWidth <= 768 && 
+                    sidebar.classList.contains('mobile-open') && 
+                    !sidebar.contains(e.target) && 
+                    !toggle.contains(e.target)) {
+                    closeMobileMenu();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
