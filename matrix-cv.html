@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ART DIRECTOR - Matrix Terminal</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: #000;
+            color: #00ff00;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* Custom cursor */
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: #00ff00;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        /* Matrix rain effect */
+        .matrix-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        .matrix-column {
+            position: absolute;
+            top: -100%;
+            font-size: 14px;
+            color: #00ff00;
+            animation: fall linear infinite;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+
+        /* Terminal container */
+        .terminal {
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 10px 0;
+            border-bottom: 1px solid #00ff00;
+        }
+
+        .terminal-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #00ff00;
+            text-shadow: 0 0 10px #00ff00;
+        }
+
+        .terminal-controls {
+            margin-left: auto;
+            display: flex;
+            gap: 10px;
+        }
+
+        .control-btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: none;
+        }
+
+        .close { background: #ff5f56; }
+        .minimize { background: #ffbd2e; }
+        .maximize { background: #27ca3f; }
+
+        /* Command line */
+        .command-line {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .prompt {
+            color: #00ff00;
+            margin-right: 10px;
+            font-weight: 600;
+        }
+
+        .command-input {
+            background: transparent;
+            border: none;
+            color: #00ff00;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 16px;
+            outline: none;
+            flex: 1;
+            caret-color: #00ff00;
+        }
+
+        .command-input::placeholder {
+            color: #00ff00;
+            opacity: 0.5;
+        }
+
+        /* Output sections */
+        .output {
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .output-line {
+            margin-bottom: 5px;
+            opacity: 0;
+            animation: typeIn 0.5s ease-in-out forwards;
+        }
+
+        @keyframes typeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .output-line:nth-child(1) { animation-delay: 0.1s; }
+        .output-line:nth-child(2) { animation-delay: 0.2s; }
+        .output-line:nth-child(3) { animation-delay: 0.3s; }
+        .output-line:nth-child(4) { animation-delay: 0.4s; }
+        .output-line:nth-child(5) { animation-delay: 0.5s; }
+
+        /* Typing animation */
+        .typing {
+            overflow: hidden;
+            border-right: 2px solid #00ff00;
+            white-space: nowrap;
+            animation: typing 2s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: #00ff00; }
+        }
+
+        /* Sections */
+        .section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid #00ff00;
+            border-radius: 5px;
+            background: rgba(0, 255, 0, 0.05);
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #00ff00;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px #00ff00;
+        }
+
+        .section-content {
+            line-height: 1.8;
+        }
+
+        .section-content p {
+            margin-bottom: 10px;
+        }
+
+        .section-content a {
+            color: #00ff00;
+            text-decoration: none;
+            border-bottom: 1px solid #00ff00;
+            transition: all 0.3s ease;
+        }
+
+        .section-content a:hover {
+            text-shadow: 0 0 10px #00ff00;
+            border-bottom-color: transparent;
+        }
+
+        /* Lists */
+        .list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .list li {
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .list li::before {
+            content: ">";
+            position: absolute;
+            left: 0;
+            color: #00ff00;
+            font-weight: 600;
+        }
+
+        /* Status indicators */
+        .status {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status.online {
+            background: #00ff00;
+            color: #000;
+        }
+
+        .status.offline {
+            background: #ff0000;
+            color: #fff;
+        }
+
+        /* Glitch effect */
+        .glitch {
+            position: relative;
+            animation: glitch 2s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .terminal {
+                padding: 10px;
+            }
+            
+            .terminal-title {
+                font-size: 16px;
+            }
+            
+            .command-input {
+                font-size: 14px;
+            }
+            
+            .section {
+                padding: 15px;
+            }
+        }
+
+        /* Hidden elements for interactive features */
+        .hidden {
+            display: none;
+        }
+
+        .easter-egg {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #000;
+            border: 2px solid #00ff00;
+            padding: 20px;
+            border-radius: 5px;
+            z-index: 1000;
+            text-align: center;
+        }
+
+        .close-easter {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: #00ff00;
+            font-size: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom cursor -->
+    <div class="cursor"></div>
+
+    <!-- Matrix rain effect -->
+    <div class="matrix-rain" id="matrixRain"></div>
+
+    <!-- Terminal -->
+    <div class="terminal">
+        <div class="terminal-header">
+            <div class="terminal-title">ART DIRECTOR - Matrix Terminal</div>
+            <div class="terminal-controls">
+                <button class="control-btn close"></button>
+                <button class="control-btn minimize"></button>
+                <button class="control-btn maximize"></button>
+            </div>
+        </div>
+
+        <div class="command-line">
+            <span class="prompt">system@art-director:~$</span>
+            <input type="text" class="command-input" placeholder="whoami" id="commandInput">
+        </div>
+
+        <div class="output" id="output">
+            <div class="output-line">
+                <span class="typing">Welcome to the Matrix... I mean, Art Director Terminal</span>
+            </div>
+        </div>
+
+        <!-- Main content sections -->
+        <div class="section">
+            <div class="section-title">System:~$ whoami</div>
+            <div class="section-content">
+                <p class="glitch">ART DIRECTOR</p>
+                <p>STATUS: <span class="status online">ONLINE</span></p>
+                <p>Creative visionary specializing in conceptual thinking, design systems, and visual storytelling.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">./system/section/</div>
+            <div class="section-content">
+                <h3>&lt;WORK_EXPERIENCE/&gt;</h3>
+                <ul class="list">
+                    <li>Senior Art Director - Creative Agency (2020-Present)</li>
+                    <li>Visual Designer - Tech Startup (2018-2020)</li>
+                    <li>Freelance Designer - Various Clients (2016-2018)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">./system/section/</div>
+            <div class="section-content">
+                <h3>&lt;EDUCATION/&gt;</h3>
+                <ul class="list">
+                    <li>Master of Fine Arts - Visual Communication</li>
+                    <li>Bachelor of Design - Graphic Design</li>
+                    <li>Certified in Adobe Creative Suite</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">./system/section/</div>
+            <div class="section-content">
+                <h3>&lt;PROJECTS/&gt;</h3>
+                <ul class="list">
+                    <li><a href="#">Brand Identity System - TechCorp</a></li>
+                    <li><a href="#">UI/UX Design - Mobile App</a></li>
+                    <li><a href="#">Print Campaign - Fashion Brand</a></li>
+                    <li><a href="#">Web Design - E-commerce Platform</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">./system/section/</div>
+            <div class="section-content">
+                <h3>&lt;SKILLS/&gt;</h3>
+                <h4>&gt;DESIGN_SKILLS</h4>
+                <p>Adobe Creative Suite, Figma, Sketch, InVision, Principle</p>
+                <h4>&gt;CONCEPTUAL_SKILLS</h4>
+                <p>Brand Strategy, Visual Storytelling, Design Systems, User Experience</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">./system/section/</div>
+            <div class="section-content">
+                <h3>&lt;CONTACT_ME/&gt;</h3>
+                <p>terminal_session</p>
+                <h4>Direct Communication Channels</h4>
+                <p><a href="mailto:artdirector@matrix.com">artdirector@matrix.com</a></p>
+                <p>SECURE_CONNECTION_NOTICE</p>
+                <p>All communications are end-to-end encrypted. Your information remains private and secure.</p>
+            </div>
+        </div>
+
+        <div class="output">
+            <div class="output-line">
+                <span class="typing">System Status: ONLINE</span>
+            </div>
+            <div class="output-line">
+                <span class="typing">[ Try typing 'help' for available commands ]</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Easter egg modal -->
+    <div class="easter-egg hidden" id="easterEgg">
+        <button class="close-easter" onclick="closeEasterEgg()">&times;</button>
+        <h3>You found the easter egg!</h3>
+        <p>Here's a design tip: Why do designers prefer dark mode? Because light attracts bugs... and clients!</p>
+        <p>Matrix-style design achieved! 🎨</p>
+    </div>
+
+    <script>
+        // Matrix rain effect
+        function createMatrixRain() {
+            const matrixRain = document.getElementById('matrixRain');
+            const characters = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+            
+            for (let i = 0; i < 50; i++) {
+                const column = document.createElement('div');
+                column.className = 'matrix-column';
+                column.style.left = Math.random() * 100 + '%';
+                column.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                column.style.animationDelay = Math.random() * 2 + 's';
+                
+                let text = '';
+                for (let j = 0; j < 20; j++) {
+                    text += characters[Math.floor(Math.random() * characters.length)] + '<br>';
+                }
+                column.innerHTML = text;
+                
+                matrixRain.appendChild(column);
+            }
+        }
+
+        // Custom cursor
+        function initCursor() {
+            const cursor = document.querySelector('.cursor');
+            
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX - 10 + 'px';
+                cursor.style.top = e.clientY - 10 + 'px';
+            });
+        }
+
+        // Terminal commands
+        function initTerminal() {
+            const commandInput = document.getElementById('commandInput');
+            const output = document.getElementById('output');
+            
+            const commands = {
+                'whoami': 'ART DIRECTOR - Creative Visionary',
+                'help': 'Available commands: whoami, help, clear, matrix, hack, status',
+                'clear': () => {
+                    output.innerHTML = '';
+                    return '';
+                },
+                'matrix': 'Welcome to the Matrix... The system has you.',
+                'hack': () => {
+                    showEasterEgg();
+                    return 'Hacking the mainframe... Access granted!';
+                },
+                'status': 'System Status: ONLINE | Design Mode: ACTIVE | Creativity Level: MAXIMUM',
+                'ls': 'index.html  concept-thinking-roadmap.html  figma-practical-tasks.md  README.md',
+                'cat readme': 'Art Director Classes - Matrix Style Terminal Interface',
+                'pwd': '/home/art-director/classes',
+                'date': new Date().toString(),
+                'echo': (args) => args ? args : 'Usage: echo [text]'
+            };
+            
+            commandInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    const command = commandInput.value.trim().toLowerCase();
+                    const args = commandInput.value.trim().split(' ').slice(1).join(' ');
+                    
+                    // Add command to output
+                    addOutputLine(`system@art-director:~$ ${commandInput.value}`);
+                    
+                    // Process command
+                    let result = '';
+                    if (commands[command]) {
+                        if (typeof commands[command] === 'function') {
+                            result = commands[command](args);
+                        } else {
+                            result = commands[command];
+                        }
+                    } else {
+                        result = `Command not found: ${command}. Type 'help' for available commands.`;
+                    }
+                    
+                    if (result) {
+                        addOutputLine(result);
+                    }
+                    
+                    commandInput.value = '';
+                    output.scrollTop = output.scrollHeight;
+                }
+            });
+            
+            // Focus on input
+            commandInput.focus();
+        }
+        
+        function addOutputLine(text) {
+            const output = document.getElementById('output');
+            const line = document.createElement('div');
+            line.className = 'output-line';
+            line.textContent = text;
+            output.appendChild(line);
+        }
+        
+        function showEasterEgg() {
+            document.getElementById('easterEgg').classList.remove('hidden');
+        }
+        
+        function closeEasterEgg() {
+            document.getElementById('easterEgg').classList.add('hidden');
+        }
+        
+        // Konami code
+        let konamiCode = [];
+        const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'KeyB', 'KeyA'];
+        
+        document.addEventListener('keydown', (e) => {
+            konamiCode.push(e.code);
+            if (konamiCode.length > konamiSequence.length) {
+                konamiCode.shift();
+            }
+            
+            if (konamiCode.join(',') === konamiSequence.join(',')) {
+                showEasterEgg();
+                konamiCode = [];
+            }
+        });
+        
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', () => {
+            createMatrixRain();
+            initCursor();
+            initTerminal();
+            
+            // Auto-focus on input
+            setTimeout(() => {
+                document.getElementById('commandInput').focus();
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

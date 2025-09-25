@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conceptual Thinking - Roadmap</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            background: #0a0a0a;
+            color: #00ff00;
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .terminal {
+            background: #0a0a0a;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+        }
+
+        .terminal-header {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px 8px 0 0;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 0;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .terminal-dot.red { background: #ff5f56; }
+        .terminal-dot.yellow { background: #ffbd2e; }
+        .terminal-dot.green { background: #27ca3f; }
+
+        .terminal-title {
+            color: #888;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+
+        .terminal-body {
+            background: #0a0a0a;
+            border: 1px solid #333;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            padding: 20px;
+            min-height: calc(100vh - 100px);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .prompt {
+            color: #00ff00;
+            margin-bottom: 10px;
+        }
+
+        .command {
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        .output {
+            color: #888;
+            margin-bottom: 20px;
+            white-space: pre-wrap;
+        }
+
+        .section {
+            margin: 30px 0;
+            border-left: 2px solid #333;
+            padding-left: 20px;
+        }
+
+        .section-title {
+            color: #00ff00;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .subsection {
+            margin: 20px 0;
+            padding-left: 20px;
+        }
+
+        .subsection-title {
+            color: #ffff00;
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .item {
+            color: #ccc;
+            margin: 8px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .item::before {
+            content: "> ";
+            color: #00ff00;
+            position: absolute;
+            left: 0;
+        }
+
+        .highlight {
+            color: #00ffff;
+            font-weight: 500;
+        }
+
+        .comment {
+            color: #666;
+            font-style: italic;
+        }
+
+        .code-block {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Fira Code', monospace;
+            overflow-x: auto;
+        }
+
+        .code-block .line {
+            margin: 2px 0;
+        }
+
+        .line-number {
+            color: #666;
+            margin-right: 15px;
+            user-select: none;
+        }
+
+        .keyword {
+            color: #ff6b6b;
+        }
+
+        .string {
+            color: #4ecdc4;
+        }
+
+        .function {
+            color: #45b7d1;
+        }
+
+        .variable {
+            color: #f9ca24;
+        }
+
+        .typing-animation {
+            border-right: 2px solid #00ff00;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { border-color: #00ff00; }
+            51%, 100% { border-color: transparent; }
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1em;
+            background: #00ff00;
+            animation: blink 1s infinite;
+            margin-left: 2px;
+        }
+
+        .progress-bar {
+            background: #333;
+            height: 4px;
+            border-radius: 2px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #00ff00, #00ffff);
+            height: 100%;
+            width: 0%;
+            transition: width 2s ease-in-out;
+        }
+
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        .matrix-char {
+            position: absolute;
+            color: #00ff00;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-100vh); opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+
+        .glitch {
+            position: relative;
+            display: inline-block;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch::before {
+            animation: glitch-1 0.5s infinite;
+            color: #ff0000;
+            z-index: -1;
+        }
+
+        .glitch::after {
+            animation: glitch-2 0.5s infinite;
+            color: #0000ff;
+            z-index: -2;
+        }
+
+        @keyframes glitch-1 {
+            0%, 14%, 15%, 49%, 50%, 99%, 100% {
+                transform: translate(0);
+            }
+            15%, 49% {
+                transform: translate(-2px, 2px);
+            }
+        }
+
+        @keyframes glitch-2 {
+            0%, 20%, 21%, 62%, 63%, 99%, 100% {
+                transform: translate(0);
+            }
+            21%, 62% {
+                transform: translate(2px, -2px);
+            }
+        }
+
+        .ascii-art {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            line-height: 1;
+            color: #00ff00;
+            white-space: pre;
+            margin: 20px 0;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .status-online { background: #00ff00; }
+        .status-offline { background: #ff0000; }
+        .status-warning { background: #ffff00; }
+
+        .file-tree {
+            font-family: 'JetBrains Mono', monospace;
+            color: #888;
+            margin: 15px 0;
+        }
+
+        .file-tree .folder {
+            color: #00ffff;
+        }
+
+        .file-tree .file {
+            color: #ffff00;
+        }
+
+        .file-tree .indent {
+            margin-left: 20px;
+        }
+
+        .terminal-input {
+            background: transparent;
+            border: none;
+            color: #00ff00;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            outline: none;
+            width: 100%;
+        }
+
+        .terminal-input::before {
+            content: "$ ";
+            color: #00ff00;
+        }
+
+        .scroll-indicator {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+            font-size: 12px;
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+        }
+
+        @media (max-width: 768px) {
+            .terminal {
+                padding: 10px;
+            }
+            
+            .terminal-body {
+                padding: 15px;
+            }
+            
+            .section {
+                padding-left: 15px;
+            }
+            
+            .subsection {
+                padding-left: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="matrix-bg" id="matrix-bg"></div>
+    
+    <div class="terminal">
+        <div class="terminal-header">
+            <div class="terminal-dot red"></div>
+            <div class="terminal-dot yellow"></div>
+            <div class="terminal-dot green"></div>
+            <div class="terminal-title">concept-thinking-roadmap.terminal</div>
+        </div>
+        
+        <div class="terminal-body">
+            <div class="prompt">
+                <span class="status-indicator status-online"></span>
+                <span class="highlight">SYSTEM</span>@<span class="highlight">CONCEPT-THINKING</span>:~$ 
+                <span class="typing-animation">whoami</span>
+            </div>
+            
+            <div class="output">
+                <div class="ascii-art">
+    ██████╗ ██████╗ ███╗   ██╗ ██████╗███████╗██████╗ ████████╗
+    ██╔══██╗██╔═══██╗████╗  ██║██╔════╝██╔════╝██╔══██╗╚══██╔══╝
+    ██║  ██║██║   ██║██╔██╗ ██║██║     █████╗  ██████╔╝   ██║   
+    ██║  ██║██║   ██║██║╚██╗██║██║     ██╔══╝  ██╔══██╗   ██║   
+    ██████╔╝╚██████╔╝██║ ╚████║╚██████╗███████╗██║  ██║   ██║   
+    ╚═════╝  ╚═════╝ ╚═╝  ╚═══╝ ╚═════╝╚══════╝╚═╝  ╚═╝   ╚═╝   
+                </div>
+                
+                <div class="glitch" data-text="CONCEPTUAL THINKING ROADMAP">
+                    <span class="highlight">CONCEPTUAL THINKING ROADMAP</span>
+                </div>
+                
+                <div class="comment">
+                    // A comprehensive guide to developing conceptual thinking skills
+                    // Version: 2.0.1 | Last Updated: 2024
+                </div>
+            </div>
+
+            <div class="prompt">
+                <span class="status-indicator status-online"></span>
+                <span class="highlight">SYSTEM</span>@<span class="highlight">CONCEPT-THINKING</span>:~$ 
+                <span class="typing-animation">cat roadmap.md</span>
+            </div>
+
+            <div class="section">
+                <div class="section-title">./system/section/</div>
+                <div class="subsection">
+                    <div class="subsection-title">&lt;FOUNDATION/&gt;</div>
+                    <div class="item">Understanding abstract concepts and their relationships</div>
+                    <div class="item">Developing pattern recognition abilities</div>
+                    <div class="item">Building mental models for complex systems</div>
+                    <div class="item">Practicing divergent and convergent thinking</div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">&lt;SKILLS_DEVELOPMENT/&gt;</div>
+                    <div class="item">Critical thinking and analysis</div>
+                    <div class="item">Creative problem-solving techniques</div>
+                    <div class="item">Systems thinking and holistic approaches</div>
+                    <div class="item">Metacognition and self-reflection</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">./learning/modules/</div>
+                <div class="subsection">
+                    <div class="subsection-title">&lt;MODULE_1/&gt;</div>
+                    <div class="item">Introduction to Conceptual Thinking</div>
+                    <div class="item">Basic principles and frameworks</div>
+                    <div class="item">Common cognitive biases and how to avoid them</div>
+                    <div class="item">Practical exercises and case studies</div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">&lt;MODULE_2/&gt;</div>
+                    <div class="item">Advanced Pattern Recognition</div>
+                    <div class="item">Cross-domain thinking applications</div>
+                    <div class="item">Metaphorical thinking and analogies</div>
+                    <div class="item">Complex system analysis</div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">&lt;MODULE_3/&gt;</div>
+                    <div class="item">Creative Conceptualization</div>
+                    <div class="item">Idea generation techniques</div>
+                    <div class="item">Conceptual prototyping and testing</div>
+                    <div class="item">Innovation frameworks</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">./tools/resources/</div>
+                <div class="file-tree">
+                    <div class="folder">📁 frameworks/</div>
+                    <div class="indent">
+                        <div class="file">📄 design_thinking.md</div>
+                        <div class="file">📄 systems_thinking.md</div>
+                        <div class="file">📄 lateral_thinking.md</div>
+                    </div>
+                    <div class="folder">📁 exercises/</div>
+                    <div class="indent">
+                        <div class="file">📄 pattern_recognition.js</div>
+                        <div class="file">📄 concept_mapping.py</div>
+                        <div class="file">📄 analogical_reasoning.md</div>
+                    </div>
+                    <div class="folder">📁 case_studies/</div>
+                    <div class="indent">
+                        <div class="file">📄 innovation_examples.md</div>
+                        <div class="file">📄 problem_solving_cases.md</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">./progress/tracking/</div>
+                <div class="code-block">
+                    <div class="line">
+                        <span class="line-number">1</span>
+                        <span class="keyword">function</span> <span class="function">trackProgress</span>() {
+                    </div>
+                    <div class="line">
+                        <span class="line-number">2</span>
+                        &nbsp;&nbsp;<span class="variable">const</span> <span class="variable">milestones</span> = [
+                    </div>
+                    <div class="line">
+                        <span class="line-number">3</span>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"Foundation Concepts"</span>,
+                    </div>
+                    <div class="line">
+                        <span class="line-number">4</span>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"Pattern Recognition"</span>,
+                    </div>
+                    <div class="line">
+                        <span class="line-number">5</span>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"Creative Application"</span>,
+                    </div>
+                    <div class="line">
+                        <span class="line-number">6</span>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"Mastery Level"</span>
+                    </div>
+                    <div class="line">
+                        <span class="line-number">7</span>
+                        &nbsp;&nbsp;];
+                    </div>
+                    <div class="line">
+                        <span class="line-number">8</span>
+                        &nbsp;&nbsp;<span class="keyword">return</span> <span class="variable">milestones</span>;
+                    </div>
+                    <div class="line">
+                        <span class="line-number">9</span>
+                        }
+                </div>
+                
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 35%"></div>
+                </div>
+                <div class="comment">// Current Progress: 35% Complete</div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">./system/status/</div>
+                <div class="output">
+                    <div class="item">
+                        <span class="status-indicator status-online"></span>
+                        <span class="highlight">LEARNING_SYSTEM</span>: <span class="string">"ACTIVE"</span>
+                    </div>
+                    <div class="item">
+                        <span class="status-indicator status-warning"></span>
+                        <span class="highlight">PRACTICE_SESSIONS</span>: <span class="string">"SCHEDULED"</span>
+                    </div>
+                    <div class="item">
+                        <span class="status-indicator status-online"></span>
+                        <span class="highlight">RESOURCE_ACCESS</span>: <span class="string">"AVAILABLE"</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="prompt">
+                <span class="status-indicator status-online"></span>
+                <span class="highlight">SYSTEM</span>@<span class="highlight">CONCEPT-THINKING</span>:~$ 
+                <span class="typing-animation">help</span>
+            </div>
+
+            <div class="output">
+                <div class="comment">// Available Commands:</div>
+                <div class="item"><span class="highlight">start</span> - Begin learning journey</div>
+                <div class="item"><span class="highlight">practice</span> - Access practice exercises</div>
+                <div class="item"><span class="highlight">progress</span> - View learning progress</div>
+                <div class="item"><span class="highlight">resources</span> - Browse learning materials</div>
+                <div class="item"><span class="highlight">assess</span> - Take skill assessment</div>
+                <div class="item"><span class="highlight">exit</span> - Close terminal session</div>
+            </div>
+
+            <div class="prompt">
+                <span class="status-indicator status-online"></span>
+                <span class="highlight">SYSTEM</span>@<span class="highlight">CONCEPT-THINKING</span>:~$ 
+                <span class="cursor"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="scroll-indicator">
+        SCROLL FOR MORE
+    </div>
+
+    <script>
+        // Matrix background effect
+        function createMatrixEffect() {
+            const matrixBg = document.getElementById('matrix-bg');
+            const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+            
+            function createChar() {
+                const char = document.createElement('div');
+                char.className = 'matrix-char';
+                char.textContent = chars[Math.floor(Math.random() * chars.length)];
+                char.style.left = Math.random() * 100 + '%';
+                char.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                char.style.animationDelay = Math.random() * 2 + 's';
+                matrixBg.appendChild(char);
+                
+                setTimeout(() => {
+                    char.remove();
+                }, 5000);
+            }
+            
+            setInterval(createChar, 100);
+        }
+
+        // Typing animation
+        function typeText(element, text, speed = 50) {
+            let i = 0;
+            element.textContent = '';
+            
+            function type() {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            
+            type();
+        }
+
+        // Progress bar animation
+        function animateProgressBar() {
+            const progressBar = document.querySelector('.progress-fill');
+            if (progressBar) {
+                setTimeout(() => {
+                    progressBar.style.width = '35%';
+                }, 1000);
+            }
+        }
+
+        // Glitch effect
+        function addGlitchEffect() {
+            const glitchElements = document.querySelectorAll('.glitch');
+            glitchElements.forEach(element => {
+                element.addEventListener('mouseenter', () => {
+                    element.style.animation = 'glitch-1 0.3s infinite, glitch-2 0.3s infinite';
+                });
+                
+                element.addEventListener('mouseleave', () => {
+                    element.style.animation = '';
+                });
+            });
+        }
+
+        // Terminal input simulation
+        function simulateTerminalInput() {
+            const commands = [
+                'whoami',
+                'cat roadmap.md',
+                'ls -la',
+                'help',
+                'status'
+            ];
+            
+            let currentCommand = 0;
+            const prompt = document.querySelector('.prompt:last-of-type');
+            
+            function showNextCommand() {
+                if (currentCommand < commands.length) {
+                    const typingElement = prompt.querySelector('.typing-animation');
+                    if (typingElement) {
+                        typeText(typingElement, commands[currentCommand], 100);
+                        currentCommand++;
+                        setTimeout(showNextCommand, 3000);
+                    }
+                }
+            }
+            
+            setTimeout(showNextCommand, 2000);
+        }
+
+        // Initialize effects
+        document.addEventListener('DOMContentLoaded', function() {
+            createMatrixEffect();
+            animateProgressBar();
+            addGlitchEffect();
+            simulateTerminalInput();
+            
+            // Add some interactive elements
+            const items = document.querySelectorAll('.item');
+            items.forEach(item => {
+                item.addEventListener('mouseenter', () => {
+                    item.style.color = '#00ff00';
+                    item.style.transform = 'translateX(5px)';
+                    item.style.transition = 'all 0.3s ease';
+                });
+                
+                item.addEventListener('mouseleave', () => {
+                    item.style.color = '#ccc';
+                    item.style.transform = 'translateX(0)';
+                });
+            });
+        });
+
+        // Konami code easter egg
+        let konamiCode = [];
+        const konamiSequence = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65]; // ↑↑↓↓←→←→BA
+        
+        document.addEventListener('keydown', function(e) {
+            konamiCode.push(e.keyCode);
+            if (konamiCode.length > konamiSequence.length) {
+                konamiCode.shift();
+            }
+            
+            if (konamiCode.join(',') === konamiSequence.join(',')) {
+                document.body.style.background = 'linear-gradient(45deg, #ff0000, #00ff00, #0000ff, #ffff00)';
+                document.body.style.animation = 'rainbow 2s linear infinite';
+                
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes rainbow {
+                        0% { filter: hue-rotate(0deg); }
+                        100% { filter: hue-rotate(360deg); }
+                    }
+                `;
+                document.head.appendChild(style);
+                
+                setTimeout(() => {
+                    document.body.style.background = '#0a0a0a';
+                    document.body.style.animation = '';
+                    style.remove();
+                }, 5000);
+            }
+        });
+    </script>
+</body>
+</html>
