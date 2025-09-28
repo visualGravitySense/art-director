@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ART DIRECTOR - Data-Driven Design Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .hero {
+            padding: 120px 0 80px;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #ff6b6b;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4);
+        }
+
+        .section {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .insight-card {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .insight-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .insight-card h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        .color-palette {
+            display: flex;
+            gap: 10px;
+            margin: 1rem 0;
+        }
+
+        .color-swatch {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .trend-chart {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+
+        .trend-bar {
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            height: 20px;
+            border-radius: 10px;
+            margin: 0.5rem 0;
+            position: relative;
+        }
+
+        .trend-bar::after {
+            content: attr(data-percentage);
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-weight: bold;
+        }
+
+        .tools-section {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .tool-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .tool-card h3 {
+            margin-bottom: 1rem;
+        }
+
+        .upload-area {
+            border: 2px dashed rgba(255, 255, 255, 0.5);
+            padding: 2rem;
+            text-align: center;
+            border-radius: 10px;
+            margin: 1rem 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .upload-area:hover {
+            border-color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .results-area {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .portfolio-section {
+            background: #f8f9fa;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-metrics {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .metric {
+            background: #667eea;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        .footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .insights-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <div class="logo">ART DIRECTOR</div>
+            <ul class="nav-links">
+                <li><a href="#insights">Data Insights</a></li>
+                <li><a href="#tools">Tools</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Data-Driven Design</h1>
+            <p>Transform your brand with evidence-based design decisions powered by AI and market intelligence</p>
+            <a href="#insights" class="cta-button">Explore Insights</a>
+        </div>
+    </section>
+
+    <section id="insights" class="section">
+        <div class="container">
+            <h2>Market Intelligence Dashboard</h2>
+            <div class="insights-grid">
+                <div class="insight-card">
+                    <h3>🎨 Color Psychology Analysis</h3>
+                    <p>Based on analysis of 10,000+ successful designs</p>
+                    <div class="color-palette">
+                        <div class="color-swatch" style="background: #2E86AB;" title="Trust Blue"></div>
+                        <div class="color-swatch" style="background: #F18F01;" title="Energy Orange"></div>
+                        <div class="color-swatch" style="background: #9B59B6;" title="Creative Purple"></div>
+                        <div class="color-swatch" style="background: #E74C3C;" title="Action Red"></div>
+                    </div>
+                    <p><strong>Best for Conversion:</strong> Blue (15% higher conversion rate)</p>
+                </div>
+
+                <div class="insight-card">
+                    <h3>📈 Design Trend Analysis</h3>
+                    <p>AI-powered trend forecasting for 2024</p>
+                    <div class="trend-chart">
+                        <div class="trend-bar" data-percentage="65%"></div>
+                        <p>Minimalism: 65% trending</p>
+                        <div class="trend-bar" data-percentage="45%" style="background: linear-gradient(90deg, #f093fb, #f5576c);"></div>
+                        <p>Brutalism: 45% trending</p>
+                        <div class="trend-bar" data-percentage="30%" style="background: linear-gradient(90deg, #667eea, #764ba2);"></div>
+                        <p>Glassmorphism: 30% trending</p>
+                    </div>
+                </div>
+
+                <div class="insight-card">
+                    <h3>💰 Portfolio Performance</h3>
+                    <p>Data-driven service recommendations</p>
+                    <ul style="margin-top: 1rem;">
+                        <li><strong>Most Profitable:</strong> UI/UX Design ($4,000 avg)</li>
+                        <li><strong>Highest Satisfaction:</strong> Brand Identity (4.7/5)</li>
+                        <li><strong>Best Repeat Business:</strong> Brand Identity (50%)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tools" class="section tools-section">
+        <div class="container">
+            <h2>Interactive Design Tools</h2>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <h3>🔍 Style Analyzer</h3>
+                    <p>Upload an image to get AI-powered style analysis</p>
+                    <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+                        <p>Click to upload image</p>
+                        <input type="file" id="fileInput" accept="image/*" style="display: none;" onchange="analyzeStyle(this)">
+                    </div>
+                    <div id="styleResults" class="results-area">
+                        <h4>Analysis Results:</h4>
+                        <p><strong>Style:</strong> <span id="detectedStyle">-</span></p>
+                        <p><strong>Confidence:</strong> <span id="confidence">-</span></p>
+                        <p><strong>Recommendations:</strong></p>
+                        <ul id="recommendations"></ul>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <h3>🎨 Color Palette Generator</h3>
+                    <p>Generate data-driven color palettes</p>
+                    <select id="moodSelect" onchange="generatePalette()">
+                        <option value="">Select Mood</option>
+                        <option value="energetic">Energetic</option>
+                        <option value="trustworthy">Trustworthy</option>
+                        <option value="creative">Creative</option>
+                    </select>
+                    <div id="generatedPalette" class="color-palette" style="margin-top: 1rem;"></div>
+                </div>
+
+                <div class="tool-card">
+                    <h3>📊 ROI Calculator</h3>
+                    <p>Calculate design investment returns</p>
+                    <div style="margin-top: 1rem;">
+                        <input type="number" placeholder="Current Conversion Rate (%)" id="currentRate" style="width: 100%; padding: 0.5rem; margin: 0.5rem 0; border: none; border-radius: 5px;">
+                        <input type="number" placeholder="Expected Improvement (%)" id="improvement" style="width: 100%; padding: 0.5rem; margin: 0.5rem 0; border: none; border-radius: 5px;">
+                        <button onclick="calculateROI()" style="width: 100%; padding: 0.5rem; background: white; color: #333; border: none; border-radius: 5px; cursor: pointer;">Calculate ROI</button>
+                        <div id="roiResult" style="margin-top: 1rem; padding: 1rem; background: rgba(255,255,255,0.2); border-radius: 5px; display: none;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio" class="section portfolio-section">
+        <div class="container">
+            <h2>Data-Driven Portfolio</h2>
+            <div class="project-grid">
+                <div class="project-card">
+                    <div class="project-image">Brand Identity Project</div>
+                    <div class="project-content">
+                        <h3>Tech Startup Rebrand</h3>
+                        <p>Complete brand identity using data-driven color psychology and trend analysis.</p>
+                        <div class="project-metrics">
+                            <span class="metric">1,250 views</span>
+                            <span class="metric">15% engagement</span>
+                            <span class="metric">8% conversion</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">UI/UX Design</div>
+                    <div class="project-content">
+                        <h3>E-commerce Platform</h3>
+                        <p>User experience optimization based on A/B testing and user behavior data.</p>
+                        <div class="project-metrics">
+                            <span class="metric">2,100 views</span>
+                            <span class="metric">22% engagement</span>
+                            <span class="metric">12% conversion</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">Web Design</div>
+                    <div class="project-content">
+                        <h3>Portfolio Website</h3>
+                        <p>Performance-optimized design with 40% faster load times and 25% higher engagement.</p>
+                        <div class="project-metrics">
+                            <span class="metric">3,500 views</span>
+                            <span class="metric">28% engagement</span>
+                            <span class="metric">18% conversion</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 ART DIRECTOR - Data-Driven Design Solutions</p>
+            <p>Powered by AI, Market Intelligence, and Creative Excellence</p>
+        </div>
+    </footer>
+
+    <script>
+        // Style Analyzer Functionality
+        function analyzeStyle(input) {
+            if (input.files && input.files[0]) {
+                const results = document.getElementById('styleResults');
+                const detectedStyle = document.getElementById('detectedStyle');
+                const confidence = document.getElementById('confidence');
+                const recommendations = document.getElementById('recommendations');
+                
+                // Simulate AI analysis
+                const styles = ['Minimalist', 'Brutalist', 'Neomorphic', 'Glassmorphic'];
+                const randomStyle = styles[Math.floor(Math.random() * styles.length)];
+                const randomConfidence = (Math.random() * 0.3 + 0.7).toFixed(2);
+                
+                const styleRecommendations = {
+                    'Minimalist': ['Use more white space', 'Stick to 2-3 colors', 'Focus on typography'],
+                    'Brutalist': ['Embrace bold typography', 'Use high contrast', 'Add geometric shapes'],
+                    'Neomorphic': ['Soft shadows and highlights', 'Muted color palette', 'Rounded corners'],
+                    'Glassmorphic': ['Frosted glass effects', 'Subtle transparency', 'Layered depth']
+                };
+                
+                detectedStyle.textContent = randomStyle;
+                confidence.textContent = (randomConfidence * 100).toFixed(1) + '%';
+                
+                recommendations.innerHTML = styleRecommendations[randomStyle]
+                    .map(rec => `<li>${rec}</li>`)
+                    .join('');
+                
+                results.style.display = 'block';
+            }
+        }
+
+        // Color Palette Generator
+        function generatePalette() {
+            const mood = document.getElementById('moodSelect').value;
+            const palette = document.getElementById('generatedPalette');
+            
+            const palettes = {
+                'energetic': ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A'],
+                'trustworthy': ['#2E86AB', '#A23B72', '#F18F01', '#4A90E2'],
+                'creative': ['#9B59B6', '#E74C3C', '#F39C12', '#1ABC9C']
+            };
+            
+            if (mood && palettes[mood]) {
+                palette.innerHTML = palettes[mood]
+                    .map(color => `<div class="color-swatch" style="background: ${color};" title="${color}"></div>`)
+                    .join('');
+            }
+        }
+
+        // ROI Calculator
+        function calculateROI() {
+            const currentRate = parseFloat(document.getElementById('currentRate').value);
+            const improvement = parseFloat(document.getElementById('improvement').value);
+            const result = document.getElementById('roiResult');
+            
+            if (currentRate && improvement) {
+                const newRate = currentRate * (1 + improvement / 100);
+                const increase = newRate - currentRate;
+                const roi = (increase / currentRate) * 100;
+                
+                result.innerHTML = `
+                    <h4>ROI Analysis:</h4>
+                    <p><strong>Current Rate:</strong> ${currentRate.toFixed(2)}%</p>
+                    <p><strong>New Rate:</strong> ${newRate.toFixed(2)}%</p>
+                    <p><strong>Improvement:</strong> +${increase.toFixed(2)}%</p>
+                    <p><strong>ROI:</strong> ${roi.toFixed(1)}%</p>
+                `;
+                result.style.display = 'block';
+            }
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll effect to header
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+            }
+        });
+    </script>
+</body>
+</html>
